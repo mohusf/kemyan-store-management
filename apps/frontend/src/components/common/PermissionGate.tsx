@@ -16,7 +16,7 @@ const PermissionGate: React.FC<PermissionGateProps> = ({
 }) => {
   const ability = useAbility();
 
-  if (ability.can(action, subject)) {
+  if (ability.can(action as any, subject as any)) {
     return <>{children}</>;
   }
 

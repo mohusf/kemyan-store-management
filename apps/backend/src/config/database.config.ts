@@ -13,7 +13,7 @@ export default registerAs(
     schema: process.env.DB_SCHEMA || 'public',
     entities: [__dirname + '/../modules/**/entities/*.entity{.ts,.js}'],
     migrations: [__dirname + '/../migrations/*{.ts,.js}'],
-    synchronize: process.env.NODE_ENV !== 'production',
+    synchronize: false,
     logging: process.env.DB_LOGGING === 'true',
     ssl:
       process.env.DB_SSL === 'true'

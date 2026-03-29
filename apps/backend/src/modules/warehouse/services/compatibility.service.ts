@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { StorageLocation } from '../entities/storage-location.entity';
 import { Zone } from '../entities/zone.entity';
 
-interface CompatibilityCheck {
+export interface CompatibilityCheck {
   isCompatible: boolean;
   warnings: string[];
   errors: string[];
