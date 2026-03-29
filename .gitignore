@@ -33,6 +33,9 @@ coverage/
 # Docker volumes (local dev)
 .docker-data/
 
+# TypeScript build info
+*.tsbuildinfo
+
 # Temporary files
 tmp/
 temp/
