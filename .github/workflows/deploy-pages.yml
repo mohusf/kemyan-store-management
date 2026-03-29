@@ -2,7 +2,7 @@ name: Deploy Frontend to GitHub Pages
 
 on:
   push:
-    branches: [main, claude/design-store-management-architecture-YoO6D]
+    branches: [main]
 
 permissions:
   contents: read
@@ -22,14 +22,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
         working-directory: apps/frontend
 
       - name: Build frontend
-        run: npm run build
+        run: npx vite build
         working-directory: apps/frontend
         env:
           VITE_API_URL: ""
