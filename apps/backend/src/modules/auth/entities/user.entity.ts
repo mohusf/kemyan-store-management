@@ -17,13 +17,13 @@ export class User {
   @Column({ type: 'varchar', length: 255, unique: true })
   email: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, name: 'password_hash' })
   passwordHash: string;
 
-  @Column({ type: 'varchar', length: 255, name: 'name_ar' })
+  @Column({ type: 'varchar', length: 100, name: 'name_ar' })
   nameAr: string;
 
-  @Column({ type: 'varchar', length: 255, name: 'name_en' })
+  @Column({ type: 'varchar', length: 100, name: 'name_en' })
   nameEn: string;
 
   @Column({ type: 'uuid', name: 'role_id' })

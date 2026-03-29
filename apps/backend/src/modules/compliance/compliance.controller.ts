@@ -12,6 +12,7 @@ import {
 import { ApiTags, ApiOperation, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { ComplianceService } from './compliance.service';
+import { CreateSdsDto, CreateWasteRecordDto, CreatePpeIssuanceDto } from './dto/create-sds.dto';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { CheckPermissions } from '../../common/decorators/roles.decorator';
 import { Action } from '../auth/casl/casl-ability.factory';
@@ -26,7 +27,7 @@ export class ComplianceController {
   @Post('sds')
   @CheckPermissions({ action: Action.Create, subject: 'Material' })
   @ApiOperation({ summary: 'Create an SDS record' })
-  async createSds(@Body() body: any) {
+  async createSds(@Body() body: CreateSdsDto) {
     return this.complianceService.createSdsRecord(body);
   }
 
@@ -47,7 +48,7 @@ export class ComplianceController {
   @Post('waste')
   @CheckPermissions({ action: Action.Create, subject: 'Material' })
   @ApiOperation({ summary: 'Create a waste disposal record' })
-  async createWasteRecord(@Body() body: any) {
+  async createWasteRecord(@Body() body: CreateWasteRecordDto) {
     return this.complianceService.createWasteRecord(body);
   }
 
@@ -63,7 +64,7 @@ export class ComplianceController {
   @Post('ppe/issue')
   @CheckPermissions({ action: Action.Create, subject: 'Material' })
   @ApiOperation({ summary: 'Issue PPE to a user' })
-  async issuePpe(@Body() body: any) {
+  async issuePpe(@Body() body: CreatePpeIssuanceDto) {
     return this.complianceService.issuePpe(body);
   }
 

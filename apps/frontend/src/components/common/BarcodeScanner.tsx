@@ -28,14 +28,14 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, buttonText }) =
         (decodedText) => {
           onScan(decodedText);
           handleClose();
-          message.success(`Scanned: ${decodedText}`);
+          message.success(`${t('barcode.scanned')}: ${decodedText}`);
         },
         () => {
           // Ignore scan failures (no QR code found in frame)
         },
       )
       .catch((err: Error) => {
-        message.error(`Camera error: ${err.message}`);
+        message.error(`${t('barcode.cameraError')}: ${err.message}`);
       });
 
     return () => {
@@ -63,7 +63,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, buttonText }) =
         open={isOpen}
         onCancel={handleClose}
         footer={null}
-        title="Scan Barcode / QR Code"
+        title={t('barcode.scanTitle')}
         destroyOnClose
       >
         <div id={containerRef.current} style={{ width: '100%' }} />

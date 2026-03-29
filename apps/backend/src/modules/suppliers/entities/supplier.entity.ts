@@ -50,8 +50,8 @@ export class Supplier {
   famiqsCertExpiry: Date;
 
   @Column({
-    type: 'enum',
-    enum: QualificationStatus,
+    type: 'varchar',
+    length: 30,
     default: QualificationStatus.PENDING,
     name: 'qualification_status',
   })
@@ -59,6 +59,9 @@ export class Supplier {
 
   @Column({ type: 'decimal', precision: 5, scale: 2, name: 'performance_score', default: 0 })
   performanceScore: number;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  country: string;
 
   @Column({ type: 'boolean', name: 'is_active', default: true })
   isActive: boolean;

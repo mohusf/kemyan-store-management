@@ -35,7 +35,7 @@ const PurchaseOrderList: React.FC = () => {
     { title: t('procurement.supplier'), dataIndex: 'supplier', key: 'supplier' },
     { title: t('common.date'), dataIndex: 'date', key: 'date', sorter: true },
     { title: t('procurement.deliveryDate'), dataIndex: 'deliveryDate', key: 'deliveryDate' },
-    { title: 'Items', dataIndex: 'itemCount', key: 'itemCount' },
+    { title: t('common.items'), dataIndex: 'itemCount', key: 'itemCount' },
     {
       title: t('common.total'),
       key: 'total',

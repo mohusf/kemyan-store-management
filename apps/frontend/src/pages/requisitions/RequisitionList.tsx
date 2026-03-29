@@ -56,7 +56,7 @@ const RequisitionList: React.FC = () => {
       dataIndex: 'priority',
       key: 'priority',
       render: (priority: string) => (
-        <Tag color={priorityColors[priority]}>{priority.toUpperCase()}</Tag>
+        <Tag color={priorityColors[priority]}>{t(`priority.${priority}`)}</Tag>
       ),
     },
     {

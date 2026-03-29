@@ -32,18 +32,18 @@ const AuditLog: React.FC = () => {
   const { t } = useTranslation();
 
   const columns: ColumnsType<AuditEntry> = [
-    { title: 'Timestamp', dataIndex: 'timestamp', key: 'timestamp', sorter: true, width: 180 },
-    { title: 'User', dataIndex: 'user', key: 'user' },
+    { title: t('audit.timestamp'), dataIndex: 'timestamp', key: 'timestamp', sorter: true, width: 180 },
+    { title: t('audit.user'), dataIndex: 'user', key: 'user' },
     {
-      title: 'Action',
+      title: t('audit.action'),
       dataIndex: 'action',
       key: 'action',
       render: (action: string) => <Tag color={actionColors[action]}>{action}</Tag>,
     },
-    { title: 'Entity', dataIndex: 'entity', key: 'entity' },
-    { title: 'Entity ID', dataIndex: 'entityId', key: 'entityId' },
-    { title: 'Details', dataIndex: 'details', key: 'details', ellipsis: true },
-    { title: 'IP Address', dataIndex: 'ipAddress', key: 'ipAddress' },
+    { title: t('audit.entity'), dataIndex: 'entity', key: 'entity' },
+    { title: t('audit.entityId'), dataIndex: 'entityId', key: 'entityId' },
+    { title: t('audit.details'), dataIndex: 'details', key: 'details', ellipsis: true },
+    { title: t('audit.ipAddress'), dataIndex: 'ipAddress', key: 'ipAddress' },
   ];
 
   const mockData: AuditEntry[] = [
@@ -67,21 +67,21 @@ const AuditLog: React.FC = () => {
             allowClear
           />
           <Select
-            placeholder="Action"
+            placeholder={t('audit.action')}
             style={{ width: 130 }}
             allowClear
             options={[
-              { label: 'Create', value: 'CREATE' },
-              { label: 'Update', value: 'UPDATE' },
-              { label: 'Delete', value: 'DELETE' },
-              { label: 'Approve', value: 'APPROVE' },
-              { label: 'Reject', value: 'REJECT' },
-              { label: 'Login', value: 'LOGIN' },
-              { label: 'Export', value: 'EXPORT' },
+              { label: t('common.create'), value: 'CREATE' },
+              { label: t('common.edit'), value: 'UPDATE' },
+              { label: t('common.delete'), value: 'DELETE' },
+              { label: t('common.approve'), value: 'APPROVE' },
+              { label: t('common.reject'), value: 'REJECT' },
+              { label: t('common.login'), value: 'LOGIN' },
+              { label: t('common.export'), value: 'EXPORT' },
             ]}
           />
           <Select
-            placeholder="Entity"
+            placeholder={t('audit.entity')}
             style={{ width: 150 }}
             allowClear
             options={[

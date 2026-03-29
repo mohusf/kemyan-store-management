@@ -42,10 +42,10 @@ const Dashboard: React.FC = () => {
   ];
 
   const recentActivity = [
-    { action: 'Material received', detail: 'Sodium Hydroxide - 500kg', time: '2 hours ago' },
-    { action: 'Requisition approved', detail: 'REQ-2026-0045', time: '3 hours ago' },
-    { action: 'QC inspection passed', detail: 'Batch #B-2026-0312', time: '5 hours ago' },
-    { action: 'PO created', detail: 'PO-2026-0089', time: '1 day ago' },
+    { action: t('dashboard.materialReceived'), detail: 'Sodium Hydroxide - 500kg', time: `2 ${t('dashboard.hoursAgo')}` },
+    { action: t('dashboard.requisitionApproved'), detail: 'REQ-2026-0045', time: `3 ${t('dashboard.hoursAgo')}` },
+    { action: t('dashboard.qcPassed'), detail: 'Batch #B-2026-0312', time: `5 ${t('dashboard.hoursAgo')}` },
+    { action: t('dashboard.poCreated'), detail: 'PO-2026-0089', time: `1 ${t('dashboard.dayAgo')}` },
   ];
 
   return (
@@ -95,20 +95,20 @@ const Dashboard: React.FC = () => {
           <Card title={t('dashboard.complianceStatus')}>
             <Space direction="vertical" style={{ width: '100%' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>SDS Coverage</span>
+                <span>{t('dashboard.sdsCoverage')}</span>
                 <Tag color="green">98%</Tag>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>ISO 9001 Documents</span>
-                <Tag color="green">Up to date</Tag>
+                <span>{t('dashboard.isoDocuments')}</span>
+                <Tag color="green">{t('dashboard.upToDate')}</Tag>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Waste Disposal Compliance</span>
-                <Tag color="orange">Review needed</Tag>
+                <span>{t('dashboard.wasteCompliance')}</span>
+                <Tag color="orange">{t('dashboard.reviewNeeded')}</Tag>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Safety Training</span>
-                <Tag color="green">Current</Tag>
+                <span>{t('dashboard.safetyTraining')}</span>
+                <Tag color="green">{t('dashboard.current')}</Tag>
               </div>
             </Space>
           </Card>

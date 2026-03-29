@@ -64,7 +64,48 @@
     "notes": "Notes",
     "back": "Back",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "required": "is required",
+    "invalidEmail": "Please enter a valid email",
+    "ok": "OK",
+    "low": "Low",
+    "critical": "Critical",
+    "overstock": "Overstock",
+    "reference": "Reference",
+    "performedBy": "Performed By",
+    "expired": "Expired",
+    "days": "days",
+    "used": "used",
+    "empty": "Empty",
+    "title": "Title",
+    "address": "Address",
+    "inspector": "Inspector",
+    "raisedBy": "Raised By",
+    "dueDate": "Due Date",
+    "items": "Items",
+    "receivedBy": "Received By",
+    "revision": "Revision",
+    "lastUpdated": "Last Updated",
+    "owner": "Owner",
+    "lastReviewed": "Last Reviewed",
+    "nextReview": "Next Review",
+    "documentNumber": "Document #",
+    "wasteId": "Waste ID",
+    "generated": "Generated",
+    "disposed": "Disposed",
+    "open": "Open",
+    "investigating": "Investigating",
+    "correctiveAction": "Corrective Action",
+    "closed": "Closed",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "occupied": "Occupied",
+    "hazardous": "Hazardous",
+    "information": "Information",
+    "general": "General",
+    "system": "System"
   },
   "auth": {
     "email": "Email",
@@ -82,7 +123,20 @@
     "pendingOrders": "Pending Orders",
     "expiringBatches": "Expiring Batches",
     "recentActivity": "Recent Activity",
-    "complianceStatus": "Compliance Status"
+    "complianceStatus": "Compliance Status",
+    "materialReceived": "Material received",
+    "requisitionApproved": "Requisition approved",
+    "qcPassed": "QC inspection passed",
+    "poCreated": "PO created",
+    "sdsCoverage": "SDS Coverage",
+    "isoDocuments": "ISO 9001 Documents",
+    "upToDate": "Up to date",
+    "wasteCompliance": "Waste Disposal Compliance",
+    "reviewNeeded": "Review needed",
+    "safetyTraining": "Safety Training",
+    "current": "Current",
+    "hoursAgo": "hours ago",
+    "dayAgo": "day ago"
   },
   "materials": {
     "title": "Materials",
@@ -153,5 +207,78 @@
     "en": "English",
     "ar": "العربية",
     "toggle": "Switch Language"
+  },
+  "reports": {
+    "title": "Reports",
+    "inventoryValueTrend": "Inventory Value Trend",
+    "materialsByCategory": "Materials by Category",
+    "monthlyConsumption": "Monthly Consumption",
+    "supplierPerformance": "Supplier Performance",
+    "totalMaterials": "Total Materials",
+    "activeSuppliers": "Active Suppliers",
+    "openPOs": "Open POs",
+    "qcPassRate": "QC Pass Rate"
+  },
+  "audit": {
+    "title": "Audit Log",
+    "timestamp": "Timestamp",
+    "user": "User",
+    "action": "Action",
+    "entity": "Entity",
+    "entityId": "Entity ID",
+    "details": "Details",
+    "ipAddress": "IP Address"
+  },
+  "settings": {
+    "title": "Settings",
+    "general": "General",
+    "system": "System",
+    "dateFormat": "Date Format",
+    "notifications": "Notifications",
+    "lowStockAlerts": "Low stock alerts",
+    "expiryNotifications": "Expiry notifications",
+    "requisitionApprovals": "Requisition approvals",
+    "qualityResults": "Quality inspection results",
+    "companyName": "Company Name",
+    "defaultCurrency": "Default Currency",
+    "fiscalYearStart": "Fiscal Year Start"
+  },
+  "warehouse": {
+    "title": "Warehouse",
+    "zoneA": "Zone A - General Chemicals",
+    "zoneB": "Zone B - Acids Storage",
+    "zoneC": "Zone C - Finished Products",
+    "zoneD": "Zone D - Raw Materials"
+  },
+  "barcode": {
+    "scanTitle": "Scan Barcode / QR Code",
+    "scanned": "Scanned",
+    "cameraError": "Camera error"
+  },
+  "ghs": {
+    "explosive": "Explosive",
+    "flammable": "Flammable",
+    "oxidizer": "Oxidizer",
+    "compressedGas": "Compressed Gas",
+    "corrosive": "Corrosive",
+    "toxic": "Toxic",
+    "harmful": "Harmful/Irritant",
+    "healthHazard": "Health Hazard",
+    "environmental": "Environmental Hazard"
+  },
+  "priority": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "urgent": "Urgent"
+  },
+  "departments": {
+    "labA": "Lab A",
+    "labB": "Lab B",
+    "production": "Production",
+    "qcLab": "QC Lab"
+  },
+  "errors": {
+    "loginFailed": "Login failed. Please check your credentials."
   }
 }

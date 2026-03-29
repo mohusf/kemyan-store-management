@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 export enum NcrSource {
@@ -27,10 +28,13 @@ export enum NcrStatus {
   CLOSED = 'closed',
 }
 
-@Entity('ncrs')
+@Entity('non_conformance_reports')
 export class Ncr {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({ type: 'varchar', length: 50, unique: true, name: 'ncr_number' })
+  ncrNumber: string;
 
   @Column({ type: 'varchar', length: 255 })
   title: string;
@@ -38,16 +42,19 @@ export class Ncr {
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ type: 'enum', enum: NcrSource })
+  @Column({ type: 'varchar', length: 30 })
   source: NcrSource;
 
-  @Column({ type: 'enum', enum: NcrSeverity })
+  @Column({ type: 'varchar', length: 20 })
   severity: NcrSeverity;
 
   @Column({ type: 'uuid', name: 'batch_id', nullable: true })
   batchId: string;
 
-  @Column({ type: 'enum', enum: NcrStatus, default: NcrStatus.OPEN })
+  @Column({ type: 'uuid', name: 'material_id', nullable: true })
+  materialId: string;
+
+  @Column({ type: 'varchar', length: 30, default: NcrStatus.OPEN })
   status: NcrStatus;
 
   @Column({ type: 'uuid', name: 'assigned_to', nullable: true })
@@ -62,8 +69,17 @@ export class Ncr {
   @Column({ type: 'text', name: 'preventive_action', nullable: true })
   preventiveAction: string;
 
+  @Column({ type: 'date', name: 'due_date', nullable: true })
+  dueDate: Date;
+
+  @Column({ type: 'uuid', name: 'created_by', nullable: true })
+  createdBy: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @Column({ type: 'timestamp', name: 'closed_at', nullable: true })
   closedAt: Date;

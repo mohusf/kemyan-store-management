@@ -53,8 +53,8 @@ const TransactionHistory: React.FC = () => {
       ),
     },
     { title: t('inventory.batchNumber'), dataIndex: 'batchNumber', key: 'batchNumber' },
-    { title: 'Reference', dataIndex: 'reference', key: 'reference' },
-    { title: 'Performed By', dataIndex: 'performedBy', key: 'performedBy' },
+    { title: t('common.reference'), dataIndex: 'reference', key: 'reference' },
+    { title: t('common.performedBy'), dataIndex: 'performedBy', key: 'performedBy' },
   ];
 
   const mockData: Transaction[] = [

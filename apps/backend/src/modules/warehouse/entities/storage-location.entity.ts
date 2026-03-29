@@ -49,8 +49,8 @@ export class StorageLocation {
   bin: string;
 
   @Column({
-    type: 'enum',
-    enum: LocationType,
+    type: 'varchar',
+    length: 30,
     default: LocationType.SHELF,
     name: 'location_type',
   })
@@ -76,6 +76,9 @@ export class StorageLocation {
 
   @Column({ type: 'jsonb', name: 'required_ppe', default: '[]' })
   requiredPpe: string[];
+
+  @Column({ type: 'boolean', name: 'is_active', default: true })
+  isActive: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

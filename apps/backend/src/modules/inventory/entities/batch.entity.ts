@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 export enum QualityStatus {
@@ -28,7 +29,7 @@ export class Batch {
   @Column({ type: 'uuid', name: 'material_id' })
   materialId: string;
 
-  @Column({ type: 'varchar', length: 100, unique: true, name: 'lot_number' })
+  @Column({ type: 'varchar', length: 50, unique: true, name: 'lot_number' })
   lotNumber: string;
 
   @Column({ type: 'uuid', name: 'supplier_id', nullable: true })
@@ -46,27 +47,27 @@ export class Batch {
   @Column({ type: 'date', name: 'received_date' })
   receivedDate: Date;
 
-  @Column({ type: 'decimal', precision: 14, scale: 4, name: 'quantity_received' })
+  @Column({ type: 'decimal', precision: 12, scale: 3, name: 'quantity_received' })
   quantityReceived: number;
 
-  @Column({ type: 'decimal', precision: 14, scale: 4, name: 'quantity_available' })
+  @Column({ type: 'decimal', precision: 12, scale: 3, name: 'quantity_available' })
   quantityAvailable: number;
 
   @Column({
-    type: 'enum',
-    enum: QualityStatus,
-    default: QualityStatus.PENDING,
+    type: 'varchar',
+    length: 30,
+    default: 'quarantine',
     name: 'quality_status',
   })
-  qualityStatus: QualityStatus;
+  qualityStatus: string;
 
   @Column({
-    type: 'enum',
-    enum: GmpPlusStatus,
-    default: GmpPlusStatus.NOT_APPLICABLE,
+    type: 'varchar',
+    length: 20,
+    default: 'non_assured',
     name: 'gmp_plus_status',
   })
-  gmpPlusStatus: GmpPlusStatus;
+  gmpPlusStatus: string;
 
   @Column({ type: 'uuid', name: 'coa_document_id', nullable: true })
   coaDocumentId: string;
@@ -77,9 +78,12 @@ export class Batch {
   @Column({ type: 'uuid', array: true, name: 'raw_material_batches', default: '{}' })
   rawMaterialBatches: string[];
 
-  @Column({ type: 'uuid', name: 'production_order_id', nullable: true })
+  @Column({ type: 'varchar', length: 50, name: 'production_order_id', nullable: true })
   productionOrderId: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

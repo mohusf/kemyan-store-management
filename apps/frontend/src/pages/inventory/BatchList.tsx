@@ -26,10 +26,10 @@ const BatchList: React.FC = () => {
 
   const getExpiryIndicator = (expiryDate: string) => {
     const daysUntilExpiry = dayjs(expiryDate).diff(dayjs(), 'day');
-    if (daysUntilExpiry < 0) return <Badge status="error" text="Expired" />;
-    if (daysUntilExpiry <= 30) return <Badge status="warning" text={`${daysUntilExpiry} days`} />;
-    if (daysUntilExpiry <= 90) return <Badge status="processing" text={`${daysUntilExpiry} days`} />;
-    return <Badge status="success" text={`${daysUntilExpiry} days`} />;
+    if (daysUntilExpiry < 0) return <Badge status="error" text={t('common.expired')} />;
+    if (daysUntilExpiry <= 30) return <Badge status="warning" text={`${daysUntilExpiry} ${t('common.days')}`} />;
+    if (daysUntilExpiry <= 90) return <Badge status="processing" text={`${daysUntilExpiry} ${t('common.days')}`} />;
+    return <Badge status="success" text={`${daysUntilExpiry} ${t('common.days')}`} />;
   };
 
   const statusColors: Record<string, string> = {

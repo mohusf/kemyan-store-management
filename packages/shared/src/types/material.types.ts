@@ -1,3 +1,9 @@
+/**
+ * MaterialCategory enum maps to the `material_categories` table in the database.
+ * Categories are stored as rows in that table (with id, name_en, name_ar, parent_id),
+ * not as a DB enum. This TypeScript enum provides well-known category names for
+ * application logic and seed data references.
+ */
 export enum MaterialCategory {
   RAW_MATERIAL = 'RAW_MATERIAL',
   PACKAGING_MATERIAL = 'PACKAGING_MATERIAL',
@@ -71,24 +77,26 @@ export interface GHSClassification {
 export interface Material {
   id: string;
   /** Internal material code, e.g. "RM-ACID-001" */
-  materialCode: string;
-  name: string;
+  code: string;
+  nameEn: string;
   nameAr?: string;
-  description?: string;
-  category: MaterialCategory;
-  unitOfMeasure: UnitOfMeasure;
-  /** Minimum stock level that triggers a reorder alert */
-  reorderPoint: number;
-  /** Maximum allowed stock level */
-  maxStockLevel: number;
-  /** GHS data; required when category is CHEMICAL or LABORATORY_REAGENT */
+  /** References material_categories.id */
+  categoryId?: string;
+  unitOfMeasure: string;
+  /** GHS data stored as JSONB; required when material is a chemical */
   ghsClassification?: GHSClassification;
-  /** Shelf life in days from date of manufacture, if applicable */
-  shelfLifeDays?: number;
-  /** Whether this material requires GMP+ assured sourcing */
-  gmpPlusRequired: boolean;
-  /** CRC compatibility group ID for chemical segregation rules */
-  compatibilityGroupId?: string;
+  /** Minimum stock level that triggers a reorder alert */
+  reorderPoint?: number;
+  /** Default quantity to reorder */
+  reorderQuantity?: number;
+  /** Minimum remaining shelf life (%) required at receipt */
+  minimumShelfLifePercent?: number;
+  /** Whether this material is classified as feed-grade (GMP+) */
+  isFeedGrade: boolean;
+  /** UUID referencing the SDS document */
+  sdsDocumentId?: string;
+  /** Material specifications stored as JSONB */
+  specifications?: Record<string, unknown>;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;

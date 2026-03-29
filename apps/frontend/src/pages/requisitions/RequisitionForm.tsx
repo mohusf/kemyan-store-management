@@ -61,10 +61,10 @@ const RequisitionForm: React.FC = () => {
             <Select
               placeholder={t('requisitions.department')}
               options={[
-                { label: 'Lab A', value: 'lab-a' },
-                { label: 'Lab B', value: 'lab-b' },
-                { label: 'Production', value: 'production' },
-                { label: 'QC Lab', value: 'qc-lab' },
+                { label: t('departments.labA'), value: 'lab-a' },
+                { label: t('departments.labB'), value: 'lab-b' },
+                { label: t('departments.production'), value: 'production' },
+                { label: t('departments.qcLab'), value: 'qc-lab' },
               ]}
             />
           </Form.Item>
@@ -77,10 +77,10 @@ const RequisitionForm: React.FC = () => {
             <Select
               placeholder={t('requisitions.priority')}
               options={[
-                { label: 'Low', value: 'low' },
-                { label: 'Medium', value: 'medium' },
-                { label: 'High', value: 'high' },
-                { label: 'Urgent', value: 'urgent' },
+                { label: t('priority.low'), value: 'low' },
+                { label: t('priority.medium'), value: 'medium' },
+                { label: t('priority.high'), value: 'high' },
+                { label: t('priority.urgent'), value: 'urgent' },
               ]}
             />
           </Form.Item>

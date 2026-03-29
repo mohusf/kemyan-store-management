@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity('sds_records')
@@ -46,6 +47,12 @@ export class SdsRecord {
   @Column({ type: 'date', name: 'superseded_date', nullable: true })
   supersededDate: Date;
 
+  @Column({ type: 'text', name: 'document_url', nullable: true })
+  documentUrl: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

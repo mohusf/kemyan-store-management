@@ -32,8 +32,8 @@ const GoodsReceivedNote: React.FC = () => {
     { title: t('procurement.orderNumber'), dataIndex: 'poNumber', key: 'poNumber' },
     { title: t('procurement.supplier'), dataIndex: 'supplier', key: 'supplier' },
     { title: t('common.date'), dataIndex: 'receivedDate', key: 'receivedDate', sorter: true },
-    { title: 'Received By', dataIndex: 'receivedBy', key: 'receivedBy' },
-    { title: 'Items', dataIndex: 'itemCount', key: 'itemCount' },
+    { title: t('common.receivedBy'), dataIndex: 'receivedBy', key: 'receivedBy' },
+    { title: t('common.items'), dataIndex: 'itemCount', key: 'itemCount' },
     {
       title: t('quality.inspectionResult'),
       dataIndex: 'inspectionStatus',
@@ -70,7 +70,7 @@ const GoodsReceivedNote: React.FC = () => {
           items={[
             {
               key: 'list',
-              label: 'GRN List',
+              label: `${t('procurement.grnNumber')}`,
               children: (
                 <>
                   <Input

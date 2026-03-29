@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tooltip, Space } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 export type GHSCode =
   | 'GHS01' // Exploding bomb
@@ -12,16 +13,16 @@ export type GHSCode =
   | 'GHS08' // Health hazard
   | 'GHS09'; // Environment
 
-const ghsLabels: Record<GHSCode, string> = {
-  GHS01: 'Explosive',
-  GHS02: 'Flammable',
-  GHS03: 'Oxidizer',
-  GHS04: 'Compressed Gas',
-  GHS05: 'Corrosive',
-  GHS06: 'Toxic',
-  GHS07: 'Irritant',
-  GHS08: 'Health Hazard',
-  GHS09: 'Environmental Hazard',
+const ghsLabelKeys: Record<GHSCode, string> = {
+  GHS01: 'ghs.explosive',
+  GHS02: 'ghs.flammable',
+  GHS03: 'ghs.oxidizer',
+  GHS04: 'ghs.compressedGas',
+  GHS05: 'ghs.corrosive',
+  GHS06: 'ghs.toxic',
+  GHS07: 'ghs.harmful',
+  GHS08: 'ghs.healthHazard',
+  GHS09: 'ghs.environmental',
 };
 
 const ghsSymbols: Record<GHSCode, string> = {
@@ -42,10 +43,11 @@ interface GHSPictogramProps {
 }
 
 const GHSPictogram: React.FC<GHSPictogramProps> = ({ codes, size = 40 }) => {
+  const { t } = useTranslation();
   return (
     <Space wrap>
       {codes.map((code) => (
-        <Tooltip key={code} title={`${code} - ${ghsLabels[code]}`}>
+        <Tooltip key={code} title={`${code} - ${t(ghsLabelKeys[code])}`}>
           <div
             style={{
               width: size,

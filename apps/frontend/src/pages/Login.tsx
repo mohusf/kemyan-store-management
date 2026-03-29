@@ -25,7 +25,7 @@ const Login: React.FC = () => {
       message.success(t('auth.welcomeBack'));
       navigate('/dashboard');
     } catch {
-      message.error('Login failed. Please check your credentials.');
+      message.error(t('errors.loginFailed'));
     } finally {
       setLoading(false);
     }
@@ -58,8 +58,8 @@ const Login: React.FC = () => {
           name="email"
           label={t('auth.email')}
           rules={[
-            { required: true, message: `${t('auth.email')} is required` },
-            { type: 'email', message: 'Please enter a valid email' },
+            { required: true, message: `${t('auth.email')} ${t('common.required')}` },
+            { type: 'email', message: t('common.invalidEmail') },
           ]}
         >
           <Input prefix={<UserOutlined />} placeholder={t('auth.email')} />
@@ -68,7 +68,7 @@ const Login: React.FC = () => {
         <Form.Item
           name="password"
           label={t('auth.password')}
-          rules={[{ required: true, message: `${t('auth.password')} is required` }]}
+          rules={[{ required: true, message: `${t('auth.password')} ${t('common.required')}` }]}
         >
           <Input.Password prefix={<LockOutlined />} placeholder={t('auth.password')} />
         </Form.Item>

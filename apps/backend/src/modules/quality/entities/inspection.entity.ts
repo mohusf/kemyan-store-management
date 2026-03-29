@@ -27,8 +27,8 @@ export class Inspection {
   batchId: string;
 
   @Column({
-    type: 'enum',
-    enum: InspectionType,
+    type: 'varchar',
+    length: 30,
     name: 'inspection_type',
   })
   inspectionType: InspectionType;
@@ -37,8 +37,8 @@ export class Inspection {
   inspectorId: string;
 
   @Column({
-    type: 'enum',
-    enum: InspectionResult,
+    type: 'varchar',
+    length: 30,
     default: InspectionResult.PENDING,
   })
   result: InspectionResult;
@@ -51,4 +51,7 @@ export class Inspection {
 
   @Column({ type: 'timestamp', name: 'inspected_at' })
   inspectedAt: Date;
+
+  @Column({ type: 'text', nullable: true })
+  notes: string;
 }

@@ -23,7 +23,7 @@ const Settings: React.FC = () => {
         items={[
           {
             key: 'general',
-            label: 'General',
+            label: t('settings.general'),
             children: (
               <Card>
                 <Form layout="vertical" style={{ maxWidth: 600 }}>
@@ -32,13 +32,13 @@ const Settings: React.FC = () => {
                       value={language}
                       onChange={handleLanguageChange}
                       options={[
-                        { label: 'English', value: 'en' },
-                        { label: 'العربية', value: 'ar' },
+                        { label: t('language.en'), value: 'en' },
+                        { label: t('language.ar'), value: 'ar' },
                       ]}
                     />
                   </Form.Item>
 
-                  <Form.Item label="Date Format">
+                  <Form.Item label={t('settings.dateFormat')}>
                     <Select
                       defaultValue="gregorian"
                       options={[
@@ -51,23 +51,23 @@ const Settings: React.FC = () => {
 
                   <Divider />
 
-                  <Title level={5}>Notifications</Title>
+                  <Title level={5}>{t('settings.notifications')}</Title>
 
                   <Space direction="vertical" style={{ width: '100%' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <Text>Low stock alerts</Text>
+                      <Text>{t('settings.lowStockAlerts')}</Text>
                       <Switch defaultChecked />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <Text>Expiry notifications</Text>
+                      <Text>{t('settings.expiryNotifications')}</Text>
                       <Switch defaultChecked />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <Text>Requisition approvals</Text>
+                      <Text>{t('settings.requisitionApprovals')}</Text>
                       <Switch defaultChecked />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <Text>Quality inspection results</Text>
+                      <Text>{t('settings.qualityResults')}</Text>
                       <Switch defaultChecked />
                     </div>
                   </Space>
@@ -81,14 +81,14 @@ const Settings: React.FC = () => {
           },
           {
             key: 'system',
-            label: 'System',
+            label: t('settings.system'),
             children: (
               <Card>
                 <Form layout="vertical" style={{ maxWidth: 600 }}>
-                  <Form.Item label="Company Name">
+                  <Form.Item label={t('settings.companyName')}>
                     <Input defaultValue="KEMYAN Chemical Industries" />
                   </Form.Item>
-                  <Form.Item label="Default Currency">
+                  <Form.Item label={t('settings.defaultCurrency')}>
                     <Select
                       defaultValue="SAR"
                       options={[
@@ -98,7 +98,7 @@ const Settings: React.FC = () => {
                       ]}
                     />
                   </Form.Item>
-                  <Form.Item label="Fiscal Year Start">
+                  <Form.Item label={t('settings.fiscalYearStart')}>
                     <Select
                       defaultValue="january"
                       options={[

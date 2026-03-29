@@ -2,6 +2,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  CreateDateColumn,
 } from 'typeorm';
 
 export enum WasteType {
@@ -31,13 +32,16 @@ export class WasteRecord {
   @Column({ type: 'uuid', name: 'batch_id', nullable: true })
   batchId: string;
 
-  @Column({ type: 'enum', enum: WasteType, name: 'waste_type' })
+  @Column({ type: 'varchar', length: 30, name: 'waste_type' })
   wasteType: WasteType;
 
   @Column({ type: 'decimal', precision: 12, scale: 2 })
   quantity: number;
 
-  @Column({ type: 'enum', enum: DisposalMethod, name: 'disposal_method' })
+  @Column({ type: 'varchar', length: 20 })
+  unit: string;
+
+  @Column({ type: 'varchar', length: 30, name: 'disposal_method' })
   disposalMethod: DisposalMethod;
 
   @Column({ type: 'uuid', name: 'disposed_by' })
@@ -48,4 +52,13 @@ export class WasteRecord {
 
   @Column({ type: 'varchar', length: 100, name: 'transport_document_number', nullable: true })
   transportDocumentNumber: string;
+
+  @Column({ type: 'varchar', length: 100, name: 'rcjy_report_ref', nullable: true })
+  rcjyReportRef: string;
+
+  @Column({ type: 'text', nullable: true })
+  notes: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }

@@ -24,19 +24,21 @@ const severityColors: Record<string, string> = {
   critical: 'red',
 };
 
-const statusConfig: Record<string, { color: string; label: string }> = {
-  open: { color: 'red', label: 'Open' },
-  investigating: { color: 'processing', label: 'Investigating' },
-  corrective_action: { color: 'orange', label: 'Corrective Action' },
-  closed: { color: 'green', label: 'Closed' },
-};
+const getStatusConfig = (t: (key: string) => string): Record<string, { color: string; label: string }> => ({
+  open: { color: 'red', label: t('common.open') },
+  investigating: { color: 'processing', label: t('common.investigating') },
+  corrective_action: { color: 'orange', label: t('common.correctiveAction') },
+  closed: { color: 'green', label: t('common.closed') },
+});
 
 const NCRList: React.FC = () => {
   const { t } = useTranslation();
 
+  const statusConfig = getStatusConfig(t);
+
   const columns: ColumnsType<NCR> = [
     { title: t('quality.ncrNumber'), dataIndex: 'ncrNumber', key: 'ncrNumber', sorter: true },
-    { title: 'Title', dataIndex: 'title', key: 'title' },
+    { title: t('common.title'), dataIndex: 'title', key: 'title' },
     { title: t('common.name'), dataIndex: 'material', key: 'material' },
     {
       title: t('quality.severity'),
@@ -57,9 +59,9 @@ const NCRList: React.FC = () => {
         />
       ),
     },
-    { title: 'Raised By', dataIndex: 'raisedBy', key: 'raisedBy' },
+    { title: t('common.raisedBy'), dataIndex: 'raisedBy', key: 'raisedBy' },
     { title: t('common.date'), dataIndex: 'raisedDate', key: 'raisedDate', sorter: true },
-    { title: 'Due Date', dataIndex: 'dueDate', key: 'dueDate' },
+    { title: t('common.dueDate'), dataIndex: 'dueDate', key: 'dueDate' },
     {
       title: t('common.actions'),
       key: 'actions',

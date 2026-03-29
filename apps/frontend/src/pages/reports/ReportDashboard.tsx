@@ -10,7 +10,7 @@ const ReportDashboard: React.FC = () => {
   const { t } = useTranslation();
 
   const inventoryTrendOption = {
-    title: { text: 'Inventory Value Trend', left: 'center' },
+    title: { text: t('reports.inventoryValueTrend'), left: 'center' },
     tooltip: { trigger: 'axis' },
     xAxis: {
       type: 'category',
@@ -30,7 +30,7 @@ const ReportDashboard: React.FC = () => {
   };
 
   const categoryDistributionOption = {
-    title: { text: 'Materials by Category', left: 'center' },
+    title: { text: t('reports.materialsByCategory'), left: 'center' },
     tooltip: { trigger: 'item' },
     series: [
       {
@@ -49,7 +49,7 @@ const ReportDashboard: React.FC = () => {
   };
 
   const consumptionOption = {
-    title: { text: 'Monthly Consumption', left: 'center' },
+    title: { text: t('reports.monthlyConsumption'), left: 'center' },
     tooltip: { trigger: 'axis' },
     xAxis: {
       type: 'category',
@@ -63,7 +63,7 @@ const ReportDashboard: React.FC = () => {
   };
 
   const supplierPerformanceOption = {
-    title: { text: 'Supplier Performance', left: 'center' },
+    title: { text: t('reports.supplierPerformance'), left: 'center' },
     tooltip: { trigger: 'axis' },
     radar: {
       indicator: [
@@ -94,10 +94,10 @@ const ReportDashboard: React.FC = () => {
             defaultValue="monthly"
             style={{ width: 120 }}
             options={[
-              { label: 'Daily', value: 'daily' },
-              { label: 'Weekly', value: 'weekly' },
-              { label: 'Monthly', value: 'monthly' },
-              { label: 'Yearly', value: 'yearly' },
+              { label: t('common.daily'), value: 'daily' },
+              { label: t('common.weekly'), value: 'weekly' },
+              { label: t('common.monthly'), value: 'monthly' },
+              { label: t('common.yearly'), value: 'yearly' },
             ]}
           />
           <RangePicker />
@@ -106,16 +106,16 @@ const ReportDashboard: React.FC = () => {
 
       <Row gutter={[16, 16]}>
         <Col xs={12} sm={6}>
-          <Card><Statistic title="Total Materials" value={1243} /></Card>
+          <Card><Statistic title={t('reports.totalMaterials')} value={1243} /></Card>
         </Col>
         <Col xs={12} sm={6}>
-          <Card><Statistic title="Active Suppliers" value={24} /></Card>
+          <Card><Statistic title={t('reports.activeSuppliers')} value={24} /></Card>
         </Col>
         <Col xs={12} sm={6}>
-          <Card><Statistic title="Open POs" value={7} valueStyle={{ color: '#F39C12' }} /></Card>
+          <Card><Statistic title={t('reports.openPOs')} value={7} valueStyle={{ color: '#F39C12' }} /></Card>
         </Col>
         <Col xs={12} sm={6}>
-          <Card><Statistic title="QC Pass Rate" value={94.5} suffix="%" valueStyle={{ color: '#27AE60' }} /></Card>
+          <Card><Statistic title={t('reports.qcPassRate')} value={94.5} suffix="%" valueStyle={{ color: '#27AE60' }} /></Card>
         </Col>
       </Row>
 

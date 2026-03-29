@@ -12,6 +12,7 @@ import {
 import { ApiTags, ApiOperation, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { QualityService } from './quality.service';
+import { CreateInspectionDto, CreateNcrDto, UpdateNcrDto, CreateCoaDto } from './dto/create-inspection.dto';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { CheckPermissions } from '../../common/decorators/roles.decorator';
 import { Action } from '../auth/casl/casl-ability.factory';
@@ -26,7 +27,7 @@ export class QualityController {
   @Post('inspections')
   @CheckPermissions({ action: Action.Create, subject: 'Inspection' })
   @ApiOperation({ summary: 'Create an inspection record' })
-  async createInspection(@Body() body: any) {
+  async createInspection(@Body() body: CreateInspectionDto) {
     return this.qualityService.createInspection(body);
   }
 
@@ -47,7 +48,7 @@ export class QualityController {
   @Post('ncrs')
   @CheckPermissions({ action: Action.Create, subject: 'Inspection' })
   @ApiOperation({ summary: 'Create a non-conformance report' })
-  async createNcr(@Body() body: any) {
+  async createNcr(@Body() body: CreateNcrDto) {
     return this.qualityService.createNcr(body);
   }
 
@@ -70,14 +71,14 @@ export class QualityController {
   @Put('ncrs/:id')
   @CheckPermissions({ action: Action.Update, subject: 'Inspection' })
   @ApiOperation({ summary: 'Update an NCR' })
-  async updateNcr(@Param('id', ParseUUIDPipe) id: string, @Body() body: any) {
+  async updateNcr(@Param('id', ParseUUIDPipe) id: string, @Body() body: UpdateNcrDto) {
     return this.qualityService.updateNcr(id, body);
   }
 
   @Post('coas')
   @CheckPermissions({ action: Action.Create, subject: 'Inspection' })
   @ApiOperation({ summary: 'Create a Certificate of Analysis record' })
-  async createCoa(@Body() body: any) {
+  async createCoa(@Body() body: CreateCoaDto) {
     return this.qualityService.createCoa(body);
   }
 

@@ -18,15 +18,17 @@ interface StockItem {
   status: 'ok' | 'low' | 'critical' | 'overstock';
 }
 
-const statusConfig: Record<string, { color: string; label: string }> = {
-  ok: { color: 'green', label: 'OK' },
-  low: { color: 'orange', label: 'Low' },
-  critical: { color: 'red', label: 'Critical' },
-  overstock: { color: 'blue', label: 'Overstock' },
-};
+const getStatusConfig = (t: (key: string) => string): Record<string, { color: string; label: string }> => ({
+  ok: { color: 'green', label: t('common.ok') },
+  low: { color: 'orange', label: t('common.low') },
+  critical: { color: 'red', label: t('common.critical') },
+  overstock: { color: 'blue', label: t('common.overstock') },
+});
 
 const InventoryOverview: React.FC = () => {
   const { t } = useTranslation();
+
+  const statusConfig = getStatusConfig(t);
 
   const columns: ColumnsType<StockItem> = [
     { title: t('common.code'), dataIndex: 'code', key: 'code', sorter: true },

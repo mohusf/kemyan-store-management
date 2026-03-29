@@ -27,7 +27,7 @@ const WarehouseMap: React.FC = () => {
 
   const zones: Zone[] = [
     {
-      id: '1', name: 'Zone A - General Chemicals', type: 'general', capacity: 50, used: 35, color: '#1B4F72',
+      id: '1', name: t('warehouse.zoneA'), type: 'general', capacity: 50, used: 35, color: '#1B4F72',
       locations: [
         { id: 'a1', code: 'A-1', occupied: true, material: 'Sodium Hydroxide', hazardous: true },
         { id: 'a2', code: 'A-2', occupied: true, material: 'Calcium Carbonate', hazardous: false },
@@ -36,7 +36,7 @@ const WarehouseMap: React.FC = () => {
       ],
     },
     {
-      id: '2', name: 'Zone B - Acids', type: 'acids', capacity: 30, used: 22, color: '#E74C3C',
+      id: '2', name: t('warehouse.zoneB'), type: 'acids', capacity: 30, used: 22, color: '#E74C3C',
       locations: [
         { id: 'b1', code: 'B-1', occupied: true, material: 'Sulfuric Acid', hazardous: true },
         { id: 'b2', code: 'B-2', occupied: true, material: 'Nitric Acid', hazardous: true },
@@ -45,7 +45,7 @@ const WarehouseMap: React.FC = () => {
       ],
     },
     {
-      id: '3', name: 'Zone C - Solvents', type: 'solvents', capacity: 40, used: 28, color: '#F39C12',
+      id: '3', name: t('warehouse.zoneC'), type: 'solvents', capacity: 40, used: 28, color: '#F39C12',
       locations: [
         { id: 'c1', code: 'C-1', occupied: true, material: 'Ethanol', hazardous: true },
         { id: 'c2', code: 'C-2', occupied: true, material: 'Acetone', hazardous: true },
@@ -54,7 +54,7 @@ const WarehouseMap: React.FC = () => {
       ],
     },
     {
-      id: '4', name: 'Zone D - Cold Storage', type: 'cold', capacity: 20, used: 8, color: '#3498DB',
+      id: '4', name: t('warehouse.zoneD'), type: 'cold', capacity: 20, used: 8, color: '#3498DB',
       locations: [
         { id: 'd1', code: 'D-1', occupied: true, material: 'Reagent Grade Enzymes', hazardous: false },
         { id: 'd2', code: 'D-2', occupied: true, material: 'Biological Indicators', hazardous: false },
@@ -68,9 +68,9 @@ const WarehouseMap: React.FC = () => {
     <div>
       <Title level={4}>{t('nav.warehouse')}</Title>
       <Space style={{ marginBottom: 16 }}>
-        <Badge color="#27AE60" text="Occupied" />
-        <Badge color="#d9d9d9" text="Empty" />
-        <Badge color="#E74C3C" text="Hazardous" />
+        <Badge color="#27AE60" text={t('common.occupied')} />
+        <Badge color="#d9d9d9" text={t('common.empty')} />
+        <Badge color="#E74C3C" text={t('common.hazardous')} />
       </Space>
 
       <Row gutter={[16, 16]}>
@@ -81,14 +81,14 @@ const WarehouseMap: React.FC = () => {
                 <Space>
                   <div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: zone.color }} />
                   <span>{zone.name}</span>
-                  <Tag>{Math.round((zone.used / zone.capacity) * 100)}% used</Tag>
+                  <Tag>{Math.round((zone.used / zone.capacity) * 100)}% {t('common.used')}</Tag>
                 </Space>
               }
             >
               <Row gutter={[8, 8]}>
                 {zone.locations.map((loc) => (
                   <Col span={6} key={loc.id}>
-                    <Tooltip title={loc.material || 'Empty'}>
+                    <Tooltip title={loc.material || t('common.empty')}>
                       <div
                         style={{
                           padding: 12,

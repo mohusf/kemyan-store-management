@@ -33,7 +33,7 @@ const InspectionList: React.FC = () => {
     { title: t('inventory.batchNumber'), dataIndex: 'batchNumber', key: 'batchNumber' },
     { title: t('procurement.grnNumber'), dataIndex: 'grnNumber', key: 'grnNumber' },
     { title: t('common.date'), dataIndex: 'date', key: 'date', sorter: true },
-    { title: 'Inspector', dataIndex: 'inspector', key: 'inspector' },
+    { title: t('common.inspector'), dataIndex: 'inspector', key: 'inspector' },
     {
       title: t('quality.inspectionResult'),
       dataIndex: 'result',

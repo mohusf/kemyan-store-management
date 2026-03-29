@@ -12,6 +12,7 @@ import {
 import { ApiTags, ApiOperation, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { WarehouseService } from './warehouse.service';
+import { CreateLocationDto, CreateZoneDto } from './dto/create-location.dto';
 import { CompatibilityService } from './services/compatibility.service';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { CheckPermissions } from '../../common/decorators/roles.decorator';
@@ -46,14 +47,14 @@ export class WarehouseController {
   @Post('locations')
   @CheckPermissions({ action: Action.Manage, subject: 'Inventory' })
   @ApiOperation({ summary: 'Create a storage location' })
-  async createLocation(@Body() body: any) {
+  async createLocation(@Body() body: CreateLocationDto) {
     return this.warehouseService.createLocation(body);
   }
 
   @Put('locations/:id')
   @CheckPermissions({ action: Action.Manage, subject: 'Inventory' })
   @ApiOperation({ summary: 'Update a storage location' })
-  async updateLocation(@Param('id', ParseUUIDPipe) id: string, @Body() body: any) {
+  async updateLocation(@Param('id', ParseUUIDPipe) id: string, @Body() body: Partial<CreateLocationDto>) {
     return this.warehouseService.updateLocation(id, body);
   }
 
@@ -74,7 +75,7 @@ export class WarehouseController {
   @Post('zones')
   @CheckPermissions({ action: Action.Manage, subject: 'Inventory' })
   @ApiOperation({ summary: 'Create a zone' })
-  async createZone(@Body() body: any) {
+  async createZone(@Body() body: CreateZoneDto) {
     return this.warehouseService.createZone(body);
   }
 

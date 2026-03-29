@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 export enum DocumentStatus {
@@ -38,15 +39,15 @@ export class Document {
   @Column({ type: 'varchar', length: 500, name: 'title_en' })
   titleEn: string;
 
-  @Column({ type: 'enum', enum: DocumentCategory })
+  @Column({ type: 'varchar', length: 30 })
   category: DocumentCategory;
 
   @Column({ type: 'varchar', length: 20 })
   version: string;
 
   @Column({
-    type: 'enum',
-    enum: DocumentStatus,
+    type: 'varchar',
+    length: 30,
     default: DocumentStatus.DRAFT,
   })
   status: DocumentStatus;
@@ -63,6 +64,15 @@ export class Document {
   @Column({ type: 'date', name: 'review_date', nullable: true })
   reviewDate: Date;
 
+  @Column({ type: 'bigint', name: 'file_size_bytes', nullable: true })
+  fileSizeBytes: number;
+
+  @Column({ type: 'varchar', length: 100, name: 'mime_type', nullable: true })
+  mimeType: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

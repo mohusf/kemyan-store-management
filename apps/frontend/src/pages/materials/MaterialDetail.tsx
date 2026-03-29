@@ -98,7 +98,7 @@ const MaterialDetail: React.FC = () => {
                     },
                     { title: t('common.quantity'), dataIndex: 'quantity', key: 'quantity' },
                     { title: t('inventory.batchNumber'), dataIndex: 'batch', key: 'batch' },
-                    { title: 'Reference', dataIndex: 'reference', key: 'reference' },
+                    { title: t('common.reference'), dataIndex: 'reference', key: 'reference' },
                   ]}
                   pagination={false}
                 />

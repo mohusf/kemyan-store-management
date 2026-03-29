@@ -2,9 +2,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  CreateDateColumn,
 } from 'typeorm';
 
-@Entity('coas')
+@Entity('certificates_of_analysis')
 export class Coa {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -26,4 +27,10 @@ export class Coa {
 
   @Column({ type: 'uuid', name: 'verified_by', nullable: true })
   verifiedBy: string;
+
+  @Column({ type: 'timestamp', name: 'verified_at', nullable: true })
+  verifiedAt: Date;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }

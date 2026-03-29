@@ -64,7 +64,48 @@
     "notes": "ملاحظات",
     "back": "رجوع",
     "next": "التالي",
-    "previous": "السابق"
+    "previous": "السابق",
+    "required": "مطلوب",
+    "invalidEmail": "يرجى إدخال بريد إلكتروني صالح",
+    "ok": "حسناً",
+    "low": "منخفض",
+    "critical": "حرج",
+    "overstock": "فائض",
+    "reference": "المرجع",
+    "performedBy": "بواسطة",
+    "expired": "منتهي الصلاحية",
+    "days": "أيام",
+    "used": "مستخدم",
+    "empty": "فارغ",
+    "title": "العنوان",
+    "address": "العنوان",
+    "inspector": "المفتش",
+    "raisedBy": "مقدم من",
+    "dueDate": "تاريخ الاستحقاق",
+    "items": "العناصر",
+    "receivedBy": "استلمها",
+    "revision": "المراجعة",
+    "lastUpdated": "آخر تحديث",
+    "owner": "المالك",
+    "lastReviewed": "آخر مراجعة",
+    "nextReview": "المراجعة القادمة",
+    "documentNumber": "رقم المستند",
+    "wasteId": "رقم النفاية",
+    "generated": "تاريخ الإنتاج",
+    "disposed": "تاريخ التخلص",
+    "open": "مفتوح",
+    "investigating": "قيد التحقيق",
+    "correctiveAction": "إجراء تصحيحي",
+    "closed": "مغلق",
+    "daily": "يومي",
+    "weekly": "أسبوعي",
+    "monthly": "شهري",
+    "yearly": "سنوي",
+    "occupied": "مشغول",
+    "hazardous": "خطر",
+    "information": "المعلومات",
+    "general": "عام",
+    "system": "النظام"
   },
   "auth": {
     "email": "البريد الإلكتروني",
@@ -82,7 +123,20 @@
     "pendingOrders": "الطلبات المعلقة",
     "expiringBatches": "الدُفعات المنتهية الصلاحية",
     "recentActivity": "النشاط الأخير",
-    "complianceStatus": "حالة الامتثال"
+    "complianceStatus": "حالة الامتثال",
+    "materialReceived": "تم استلام مواد",
+    "requisitionApproved": "تمت الموافقة على طلب",
+    "qcPassed": "نجح فحص الجودة",
+    "poCreated": "تم إنشاء أمر شراء",
+    "sdsCoverage": "تغطية صحائف السلامة",
+    "isoDocuments": "مستندات ISO 9001",
+    "upToDate": "محدّث",
+    "wasteCompliance": "امتثال التخلص من النفايات",
+    "reviewNeeded": "يحتاج مراجعة",
+    "safetyTraining": "تدريب السلامة",
+    "current": "حالي",
+    "hoursAgo": "ساعات مضت",
+    "dayAgo": "يوم مضى"
   },
   "materials": {
     "title": "المواد",
@@ -153,5 +207,78 @@
     "en": "English",
     "ar": "العربية",
     "toggle": "تبديل اللغة"
+  },
+  "reports": {
+    "title": "التقارير",
+    "inventoryValueTrend": "اتجاه قيمة المخزون",
+    "materialsByCategory": "المواد حسب الفئة",
+    "monthlyConsumption": "الاستهلاك الشهري",
+    "supplierPerformance": "أداء الموردين",
+    "totalMaterials": "إجمالي المواد",
+    "activeSuppliers": "الموردون النشطون",
+    "openPOs": "أوامر الشراء المفتوحة",
+    "qcPassRate": "معدل نجاح فحص الجودة"
+  },
+  "audit": {
+    "title": "سجل التدقيق",
+    "timestamp": "الوقت",
+    "user": "المستخدم",
+    "action": "الإجراء",
+    "entity": "الكيان",
+    "entityId": "رقم الكيان",
+    "details": "التفاصيل",
+    "ipAddress": "عنوان IP"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "general": "عام",
+    "system": "النظام",
+    "dateFormat": "تنسيق التاريخ",
+    "notifications": "الإشعارات",
+    "lowStockAlerts": "تنبيهات المخزون المنخفض",
+    "expiryNotifications": "إشعارات انتهاء الصلاحية",
+    "requisitionApprovals": "موافقات طلبات الصرف",
+    "qualityResults": "نتائج فحص الجودة",
+    "companyName": "اسم الشركة",
+    "defaultCurrency": "العملة الافتراضية",
+    "fiscalYearStart": "بداية السنة المالية"
+  },
+  "warehouse": {
+    "title": "المستودع",
+    "zoneA": "المنطقة أ - المواد الكيميائية العامة",
+    "zoneB": "المنطقة ب - تخزين الأحماض",
+    "zoneC": "المنطقة ج - المنتجات النهائية",
+    "zoneD": "المنطقة د - المواد الخام"
+  },
+  "barcode": {
+    "scanTitle": "مسح الباركود / رمز QR",
+    "scanned": "تم المسح",
+    "cameraError": "خطأ في الكاميرا"
+  },
+  "ghs": {
+    "explosive": "متفجر",
+    "flammable": "قابل للاشتعال",
+    "oxidizer": "مؤكسد",
+    "compressedGas": "غاز مضغوط",
+    "corrosive": "مادة حارقة",
+    "toxic": "سام",
+    "harmful": "ضار/مهيج",
+    "healthHazard": "خطر صحي",
+    "environmental": "خطر بيئي"
+  },
+  "priority": {
+    "low": "منخفض",
+    "medium": "متوسط",
+    "high": "عالي",
+    "urgent": "عاجل"
+  },
+  "departments": {
+    "labA": "مختبر أ",
+    "labB": "مختبر ب",
+    "production": "الإنتاج",
+    "qcLab": "مختبر الجودة"
+  },
+  "errors": {
+    "loginFailed": "فشل تسجيل الدخول. يرجى التحقق من بياناتك."
   }
 }

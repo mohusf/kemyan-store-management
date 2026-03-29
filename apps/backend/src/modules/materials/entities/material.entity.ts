@@ -30,7 +30,7 @@ export class Material {
   @JoinColumn({ name: 'category_id' })
   category: MaterialCategory;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column({ type: 'varchar', length: 50, name: 'unit_of_measure' })
   unit: string;
 
   @Column({ type: 'jsonb', name: 'ghs_classification', nullable: true })
@@ -53,6 +53,9 @@ export class Material {
 
   @Column({ type: 'jsonb', nullable: true })
   specifications: Record<string, any>;
+
+  @Column({ type: 'boolean', name: 'is_active', default: true })
+  isActive: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

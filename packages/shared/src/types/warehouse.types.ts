@@ -1,60 +1,60 @@
 /**
- * Physical zone types in the Kemyan warehouse.
- * Zones enforce chemical segregation and storage rules.
+ * Zone types in the Kemyan warehouse.
+ * Values are simple strings matching seed data; stored as VARCHAR in the zones table.
  */
 export enum ZoneType {
-  /** Raw material storage - Acids */
-  RM_ACID = 'RM_ACID',
-  /** Raw material storage - Calcium-based materials */
-  RM_CALCIUM = 'RM_CALCIUM',
-  /** Raw material storage - Bases / alkalis */
-  RM_BASE = 'RM_BASE',
-  /** Raw material storage - General (non-hazardous) */
-  RM_GENERAL = 'RM_GENERAL',
-  /** Finished goods storage */
-  FG = 'FG',
-  /** Quality control hold / quarantine area */
-  QC_HOLD = 'QC_HOLD',
-  /** Waste storage area (hazardous and non-hazardous) */
-  WASTE = 'WASTE',
-  /** Spare parts and maintenance materials */
-  SPARE_PARTS = 'SPARE_PARTS',
+  RAW_MATERIAL = 'raw_material',
+  FINISHED_GOODS = 'finished_goods',
+  QUARANTINE = 'quarantine',
+  HAZARDOUS = 'hazardous',
+  COLD_STORAGE = 'cold_storage',
 }
 
-export enum LocationType {
-  /** Floor-level pallet position */
-  FLOOR = 'FLOOR',
-  /** Rack position with row/level/bay coordinates */
-  RACK = 'RACK',
-  /** Bulk storage area (outdoor or large bay) */
-  BULK = 'BULK',
-  /** Temperature-controlled cold room */
-  COLD_ROOM = 'COLD_ROOM',
-  /** Dedicated hazmat containment area with spill bunding */
-  HAZMAT_CONTAINMENT = 'HAZMAT_CONTAINMENT',
+/**
+ * Zone record representing a physical warehouse area.
+ * Maps to the zones table.
+ */
+export interface Zone {
+  id: string;
+  code: string;
+  nameEn: string;
+  nameAr?: string;
+  zoneType: string;
+  /** JSONB array of allowed chemical compatibility group identifiers */
+  allowedCompatibilityGroups: string[];
+  /** JSONB describing required safety equipment for the zone */
+  safetyEquipment?: Record<string, unknown>;
+  maxTemperature?: number;
+  maxHumidity?: number;
+  isActive: boolean;
+  createdAt: string;
 }
 
+/**
+ * Individual addressable storage position within a zone.
+ * Maps to the storage_locations table.
+ */
 export interface StorageLocation {
   id: string;
-  /** Human-readable location code, e.g. "RM-ACID-R01-L02-B03" */
-  locationCode: string;
-  zoneType: ZoneType;
-  locationType: LocationType;
-  /** Aisle or row identifier */
+  /** Human-readable location code, e.g. "RM-ACID-A01-R01-B01" */
+  code: string;
+  nameEn?: string;
+  nameAr?: string;
+  zoneId?: string;
   aisle?: string;
-  /** Rack level (vertical position) */
-  level?: string;
-  /** Bay or position number */
-  bay?: string;
-  /** Maximum weight capacity in kg */
-  capacityKg?: number;
-  /** Whether the location is currently occupied */
-  isOccupied: boolean;
-  /** Temperature range limits if applicable */
-  minTemperatureC?: number;
-  maxTemperatureC?: number;
-  /** CRC compatibility group IDs allowed in this location */
-  allowedCompatibilityGroups?: string[];
+  rack?: string;
+  bin?: string;
+  /** e.g. 'floor', 'rack', 'bulk', 'cold_room' */
+  locationType: string;
+  /** JSONB array of chemical compatibility group identifiers */
+  compatibilityGroups: string[];
+  maxCapacity?: number;
+  currentOccupancy: number;
+  temperatureMin?: number;
+  temperatureMax?: number;
+  humidityMax?: number;
+  /** JSONB array of required PPE for this location */
+  requiredPpe?: string[];
   isActive: boolean;
   createdAt: string;
   updatedAt: string;

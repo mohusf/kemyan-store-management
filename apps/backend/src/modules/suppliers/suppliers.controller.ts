@@ -12,6 +12,7 @@ import {
 import { ApiTags, ApiOperation, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { SuppliersService } from './suppliers.service';
+import { CreateSupplierDto, CreateSupplierEvaluationDto } from './dto/create-supplier.dto';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { CheckPermissions } from '../../common/decorators/roles.decorator';
 import { Action } from '../auth/casl/casl-ability.factory';
@@ -26,7 +27,7 @@ export class SuppliersController {
   @Post()
   @CheckPermissions({ action: Action.Create, subject: 'Supplier' })
   @ApiOperation({ summary: 'Create a new supplier' })
-  async create(@Body() body: any) {
+  async create(@Body() body: CreateSupplierDto) {
     return this.suppliersService.create(body);
   }
 
@@ -49,7 +50,7 @@ export class SuppliersController {
   @Put(':id')
   @CheckPermissions({ action: Action.Update, subject: 'Supplier' })
   @ApiOperation({ summary: 'Update a supplier' })
-  async update(@Param('id', ParseUUIDPipe) id: string, @Body() body: any) {
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() body: Partial<CreateSupplierDto>) {
     return this.suppliersService.update(id, body);
   }
 
@@ -58,7 +59,7 @@ export class SuppliersController {
   @ApiOperation({ summary: 'Add supplier evaluation' })
   async addEvaluation(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() body: any,
+    @Body() body: CreateSupplierEvaluationDto,
   ) {
     return this.suppliersService.addEvaluation({ ...body, supplierId: id });
   }

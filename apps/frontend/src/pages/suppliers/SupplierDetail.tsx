@@ -52,7 +52,7 @@ const SupplierDetail: React.FC = () => {
         items={[
           {
             key: 'info',
-            label: 'Information',
+            label: t('common.information'),
             children: (
               <Card>
                 <Descriptions bordered column={{ xs: 1, sm: 2 }}>
@@ -60,7 +60,7 @@ const SupplierDetail: React.FC = () => {
                   <Descriptions.Item label={t('suppliers.contactPerson')}>{supplier.contactPerson}</Descriptions.Item>
                   <Descriptions.Item label={t('suppliers.phone')}>{supplier.phone}</Descriptions.Item>
                   <Descriptions.Item label={t('auth.email')}>{supplier.email}</Descriptions.Item>
-                  <Descriptions.Item label="Address" span={2}>{supplier.address}</Descriptions.Item>
+                  <Descriptions.Item label={t('common.address')} span={2}>{supplier.address}</Descriptions.Item>
                   <Descriptions.Item label={t('suppliers.certifications')}>
                     <Space>
                       {supplier.certifications.map((cert) => (

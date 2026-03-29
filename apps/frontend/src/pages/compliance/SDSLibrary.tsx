@@ -58,8 +58,8 @@ const SDSLibrary: React.FC = () => {
         </Space>
       ),
     },
-    { title: 'Revision', dataIndex: 'revision', key: 'revision' },
-    { title: 'Last Updated', dataIndex: 'lastUpdated', key: 'lastUpdated' },
+    { title: t('common.revision'), dataIndex: 'revision', key: 'revision' },
+    { title: t('common.lastUpdated'), dataIndex: 'lastUpdated', key: 'lastUpdated' },
     {
       title: t('common.actions'),
       key: 'actions',

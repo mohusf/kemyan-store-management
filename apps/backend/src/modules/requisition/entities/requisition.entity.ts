@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  UpdateDateColumn,
   ManyToOne,
   JoinColumn,
   OneToMany,
@@ -32,6 +33,9 @@ export class Requisition {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column({ type: 'varchar', length: 50, unique: true, name: 'requisition_number' })
+  requisitionNumber: string;
+
   @Column({ type: 'uuid', name: 'requester_id' })
   requesterId: string;
 
@@ -41,15 +45,15 @@ export class Requisition {
   @Column({ type: 'decimal', precision: 12, scale: 2 })
   quantity: number;
 
-  @Column({ type: 'enum', enum: UrgencyLevel, default: UrgencyLevel.NORMAL })
+  @Column({ type: 'varchar', length: 20, default: UrgencyLevel.NORMAL })
   urgency: UrgencyLevel;
 
   @Column({ type: 'decimal', precision: 14, scale: 2, name: 'estimated_value', default: 0 })
   estimatedValue: number;
 
   @Column({
-    type: 'enum',
-    enum: RequisitionStatus,
+    type: 'varchar',
+    length: 30,
     default: RequisitionStatus.DRAFT,
   })
   status: RequisitionStatus;
@@ -57,12 +61,21 @@ export class Requisition {
   @Column({ type: 'uuid', name: 'current_approver_id', nullable: true })
   currentApproverId: string;
 
-  @Column({ type: 'uuid', name: 'department_id' })
-  departmentId: string;
+  @Column({ type: 'varchar', length: 100 })
+  department: string;
+
+  @Column({ type: 'text', nullable: true })
+  justification: string;
+
+  @Column({ type: 'date', name: 'required_date', nullable: true })
+  requiredDate: Date;
 
   @OneToMany(() => ApprovalStep, (step) => step.requisition)
   approvalSteps: ApprovalStep[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

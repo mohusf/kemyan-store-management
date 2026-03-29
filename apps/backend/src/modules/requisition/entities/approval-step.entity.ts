@@ -36,8 +36,8 @@ export class ApprovalStep {
   approverId: string;
 
   @Column({
-    type: 'enum',
-    enum: ApprovalDecision,
+    type: 'varchar',
+    length: 20,
     default: ApprovalDecision.PENDING,
   })
   decision: ApprovalDecision;
@@ -47,4 +47,10 @@ export class ApprovalStep {
 
   @Column({ type: 'timestamp', name: 'decided_at', nullable: true })
   decidedAt: Date;
+
+  @Column({ type: 'int', name: 'sla_hours', default: 24 })
+  slaHours: number;
+
+  @Column({ type: 'boolean', default: false })
+  escalated: boolean;
 }

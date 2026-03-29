@@ -31,7 +31,7 @@ const WasteTracking: React.FC = () => {
   const { t } = useTranslation();
 
   const columns: ColumnsType<WasteRecord> = [
-    { title: 'Waste ID', dataIndex: 'wasteId', key: 'wasteId', sorter: true },
+    { title: t('common.wasteId'), dataIndex: 'wasteId', key: 'wasteId', sorter: true },
     { title: t('common.name'), dataIndex: 'material', key: 'material' },
     {
       title: t('compliance.wasteCategory'),
@@ -44,8 +44,8 @@ const WasteTracking: React.FC = () => {
     },
     { title: t('common.quantity'), key: 'quantity', render: (_: unknown, r: WasteRecord) => `${r.quantity} ${r.unit}` },
     { title: t('compliance.disposalMethod'), dataIndex: 'disposalMethod', key: 'disposalMethod' },
-    { title: 'Generated', dataIndex: 'generatedDate', key: 'generatedDate', sorter: true },
-    { title: 'Disposed', dataIndex: 'disposalDate', key: 'disposalDate', render: (d: string | null) => d || '-' },
+    { title: t('common.generated'), dataIndex: 'generatedDate', key: 'generatedDate', sorter: true },
+    { title: t('common.disposed'), dataIndex: 'disposalDate', key: 'disposalDate', render: (d: string | null) => d || '-' },
     {
       title: t('common.status'),
       dataIndex: 'status',

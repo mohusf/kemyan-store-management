@@ -93,7 +93,7 @@ export class InventoryService {
         batchId: batch.id,
         materialId: dto.materialId,
         locationId: dto.locationId,
-        transactionType: TransactionType.RECEIPT,
+        transactionType: TransactionType.RECEIVE,
         quantity: dto.quantity,
         referenceType: dto.referenceType,
         referenceId: dto.referenceId,
@@ -127,12 +127,19 @@ export class InventoryService {
         throw new NotFoundException(`Batch ${batchId} not found`);
       }
 
+      if (Number(batch.quantityAvailable) < quantity) {
+        throw new BadRequestException('Insufficient stock in batch for transfer');
+      }
+
+      batch.quantityAvailable = Number(batch.quantityAvailable) - quantity;
+      await manager.save(batch);
+
       const outBalance = await this.calculateRunningBalance(materialId, fromLocationId, manager);
       const outTransaction = manager.create(InventoryTransaction, {
         batchId,
         materialId,
         locationId: fromLocationId,
-        transactionType: TransactionType.TRANSFER_OUT,
+        transactionType: TransactionType.TRANSFER,
         quantity: -quantity,
         referenceType: 'transfer',
         referenceId: batchId,
@@ -146,7 +153,7 @@ export class InventoryService {
         batchId,
         materialId,
         locationId: toLocationId,
-        transactionType: TransactionType.TRANSFER_IN,
+        transactionType: TransactionType.TRANSFER,
         quantity,
         referenceType: 'transfer',
         referenceId: batchId,
@@ -182,7 +189,7 @@ export class InventoryService {
       const runningBalance = await this.calculateRunningBalance(materialId, locationId, manager);
 
       const transactionType =
-        quantity >= 0 ? TransactionType.ADJUSTMENT_PLUS : TransactionType.ADJUSTMENT_MINUS;
+        quantity >= 0 ? TransactionType.ADJUST : TransactionType.ADJUST;
 
       const transaction = manager.create(InventoryTransaction, {
         batchId,
