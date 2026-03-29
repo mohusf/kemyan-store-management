@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createHashRouter, Navigate } from 'react-router-dom';
 import { Spin } from 'antd';
 import MainLayout from '../layouts/MainLayout';
 import AuthLayout from '../layouts/AuthLayout';
@@ -42,9 +42,7 @@ const ReportDashboard = () => lazy(() => import('../pages/reports/ReportDashboar
 const AuditLog = () => lazy(() => import('../pages/audit/AuditLog'));
 const Settings = () => lazy(() => import('../pages/settings/Settings'));
 
-const basename = import.meta.env.BASE_URL || '/';
-
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: '/login',
     element: <AuthLayout />,
@@ -83,4 +81,4 @@ export const router = createBrowserRouter([
       { path: 'settings', element: <Settings /> },
     ],
   },
-], { basename });
+]);
