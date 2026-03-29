@@ -31,7 +31,7 @@ export class Inspection {
     length: 30,
     name: 'inspection_type',
   })
-  inspectionType: InspectionType;
+  inspectionType: string;
 
   @Column({ type: 'uuid', name: 'inspector_id' })
   inspectorId: string;
@@ -41,7 +41,7 @@ export class Inspection {
     length: 30,
     default: InspectionResult.PENDING,
   })
-  result: InspectionResult;
+  result: string;
 
   @Column({ type: 'jsonb', nullable: true })
   parameters: Record<string, any>;

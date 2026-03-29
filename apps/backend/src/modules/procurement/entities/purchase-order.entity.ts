@@ -37,10 +37,10 @@ export class PurchaseOrder {
   })
   status: PurchaseOrderStatus;
 
-  @Column({ type: 'decimal', precision: 14, scale: 2, name: 'total_amount', default: 0 })
+  @Column({ type: 'decimal', precision: 15, scale: 2, name: 'total_amount', default: 0 })
   totalAmount: number;
 
-  @Column({ type: 'decimal', precision: 14, scale: 2, name: 'vat_amount', default: 0 })
+  @Column({ type: 'decimal', precision: 15, scale: 2, name: 'vat_amount', default: 0 })
   vatAmount: number;
 
   @Column({ type: 'varchar', length: 3, default: 'SAR' })

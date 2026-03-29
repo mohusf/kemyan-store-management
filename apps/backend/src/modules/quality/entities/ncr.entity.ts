@@ -43,10 +43,10 @@ export class Ncr {
   description: string;
 
   @Column({ type: 'varchar', length: 30 })
-  source: NcrSource;
+  source: string;
 
   @Column({ type: 'varchar', length: 20 })
-  severity: NcrSeverity;
+  severity: string;
 
   @Column({ type: 'uuid', name: 'batch_id', nullable: true })
   batchId: string;
@@ -55,7 +55,7 @@ export class Ncr {
   materialId: string;
 
   @Column({ type: 'varchar', length: 30, default: NcrStatus.OPEN })
-  status: NcrStatus;
+  status: string;
 
   @Column({ type: 'uuid', name: 'assigned_to', nullable: true })
   assignedTo: string;

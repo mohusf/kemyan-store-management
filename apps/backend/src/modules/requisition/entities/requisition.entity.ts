@@ -42,7 +42,7 @@ export class Requisition {
   @Column({ type: 'uuid', name: 'material_id' })
   materialId: string;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2 })
+  @Column({ type: 'decimal', precision: 12, scale: 3 })
   quantity: number;
 
   @Column({ type: 'varchar', length: 20, default: UrgencyLevel.NORMAL })

@@ -105,7 +105,9 @@
     "hazardous": "خطر",
     "information": "المعلومات",
     "general": "عام",
-    "system": "النظام"
+    "system": "النظام",
+    "user": "مستخدم",
+    "admin": "مدير"
   },
   "auth": {
     "email": "البريد الإلكتروني",
@@ -145,7 +147,11 @@
     "hazardClass": "فئة الخطر",
     "storageConditions": "ظروف التخزين",
     "minimumStock": "الحد الأدنى للمخزون",
-    "currentStock": "المخزون الحالي"
+    "currentStock": "المخزون الحالي",
+    "categoryAcid": "حمض",
+    "categoryBase": "قاعدة",
+    "categorySolvent": "مذيب",
+    "categorySalt": "ملح"
   },
   "requisitions": {
     "title": "طلبات الصرف",
@@ -181,7 +187,12 @@
     "phone": "الهاتف",
     "certifications": "الشهادات",
     "rating": "التقييم",
-    "evaluationScore": "درجة التقييم"
+    "evaluationScore": "درجة التقييم",
+    "quality": "الجودة",
+    "delivery": "التوصيل",
+    "price": "السعر",
+    "communication": "التواصل",
+    "documentation": "التوثيق"
   },
   "quality": {
     "title": "مراقبة الجودة",
@@ -217,7 +228,19 @@
     "totalMaterials": "إجمالي المواد",
     "activeSuppliers": "الموردون النشطون",
     "openPOs": "أوامر الشراء المفتوحة",
-    "qcPassRate": "معدل نجاح فحص الجودة"
+    "qcPassRate": "معدل نجاح فحص الجودة",
+    "acids": "أحماض",
+    "bases": "قواعد",
+    "solvents": "مذيبات",
+    "salts": "أملاح",
+    "other": "أخرى",
+    "consumed": "مستهلك",
+    "received": "مستلم",
+    "quality": "الجودة",
+    "delivery": "التوصيل",
+    "price": "السعر",
+    "response": "الاستجابة",
+    "documentation": "التوثيق"
   },
   "audit": {
     "title": "سجل التدقيق",
@@ -241,7 +264,17 @@
     "qualityResults": "نتائج فحص الجودة",
     "companyName": "اسم الشركة",
     "defaultCurrency": "العملة الافتراضية",
-    "fiscalYearStart": "بداية السنة المالية"
+    "fiscalYearStart": "بداية السنة المالية",
+    "gregorian": "ميلادي (YYYY-MM-DD)",
+    "hijri": "هجري",
+    "bothCalendars": "كلاهما",
+    "sarCurrency": "ر.س - ريال سعودي",
+    "usdCurrency": "د.أ - دولار أمريكي",
+    "eurCurrency": "يورو",
+    "january": "يناير",
+    "april": "أبريل",
+    "july": "يوليو",
+    "october": "أكتوبر"
   },
   "warehouse": {
     "title": "المستودع",
@@ -279,6 +312,8 @@
     "qcLab": "مختبر الجودة"
   },
   "errors": {
-    "loginFailed": "فشل تسجيل الدخول. يرجى التحقق من بياناتك."
+    "loginFailed": "فشل تسجيل الدخول. يرجى التحقق من بياناتك.",
+    "somethingWrong": "حدث خطأ ما",
+    "reload": "إعادة تحميل"
   }
 }

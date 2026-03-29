@@ -42,9 +42,9 @@ const Settings: React.FC = () => {
                     <Select
                       defaultValue="gregorian"
                       options={[
-                        { label: 'Gregorian (YYYY-MM-DD)', value: 'gregorian' },
-                        { label: 'Hijri', value: 'hijri' },
-                        { label: 'Both', value: 'both' },
+                        { label: t('settings.gregorian'), value: 'gregorian' },
+                        { label: t('settings.hijri'), value: 'hijri' },
+                        { label: t('settings.bothCalendars'), value: 'both' },
                       ]}
                     />
                   </Form.Item>
@@ -92,9 +92,9 @@ const Settings: React.FC = () => {
                     <Select
                       defaultValue="SAR"
                       options={[
-                        { label: 'SAR - Saudi Riyal', value: 'SAR' },
-                        { label: 'USD - US Dollar', value: 'USD' },
-                        { label: 'EUR - Euro', value: 'EUR' },
+                        { label: t('settings.sarCurrency'), value: 'SAR' },
+                        { label: t('settings.usdCurrency'), value: 'USD' },
+                        { label: t('settings.eurCurrency'), value: 'EUR' },
                       ]}
                     />
                   </Form.Item>
@@ -102,10 +102,10 @@ const Settings: React.FC = () => {
                     <Select
                       defaultValue="january"
                       options={[
-                        { label: 'January', value: 'january' },
-                        { label: 'April', value: 'april' },
-                        { label: 'July', value: 'july' },
-                        { label: 'October', value: 'october' },
+                        { label: t('settings.january'), value: 'january' },
+                        { label: t('settings.april'), value: 'april' },
+                        { label: t('settings.july'), value: 'july' },
+                        { label: t('settings.october'), value: 'october' },
                       ]}
                     />
                   </Form.Item>

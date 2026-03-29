@@ -40,7 +40,7 @@ export class Document {
   titleEn: string;
 
   @Column({ type: 'varchar', length: 30 })
-  category: DocumentCategory;
+  category: string;
 
   @Column({ type: 'varchar', length: 20 })
   version: string;
@@ -50,7 +50,7 @@ export class Document {
     length: 30,
     default: DocumentStatus.DRAFT,
   })
-  status: DocumentStatus;
+  status: string;
 
   @Column({ type: 'varchar', length: 1000, name: 'file_path' })
   filePath: string;
@@ -59,10 +59,10 @@ export class Document {
   uploadedBy: string;
 
   @Column({ type: 'date', name: 'effective_date', nullable: true })
-  effectiveDate: Date;
+  effectiveDate: string | Date;
 
   @Column({ type: 'date', name: 'review_date', nullable: true })
-  reviewDate: Date;
+  reviewDate: string | Date;
 
   @Column({ type: 'bigint', name: 'file_size_bytes', nullable: true })
   fileSizeBytes: number;

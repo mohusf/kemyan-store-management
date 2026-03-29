@@ -54,7 +54,7 @@ export class StorageLocation {
     default: LocationType.SHELF,
     name: 'location_type',
   })
-  locationType: LocationType;
+  locationType: string;
 
   @Column({ type: 'jsonb', name: 'compatibility_groups', default: '[]' })
   compatibilityGroups: string[];
@@ -65,13 +65,13 @@ export class StorageLocation {
   @Column({ type: 'decimal', precision: 12, scale: 2, name: 'current_occupancy', default: 0 })
   currentOccupancy: number;
 
-  @Column({ type: 'decimal', precision: 5, scale: 2, name: 'temperature_min', nullable: true })
+  @Column({ type: 'decimal', precision: 5, scale: 1, name: 'temperature_min', nullable: true })
   temperatureMin: number;
 
-  @Column({ type: 'decimal', precision: 5, scale: 2, name: 'temperature_max', nullable: true })
+  @Column({ type: 'decimal', precision: 5, scale: 1, name: 'temperature_max', nullable: true })
   temperatureMax: number;
 
-  @Column({ type: 'decimal', precision: 5, scale: 2, name: 'humidity_max', nullable: true })
+  @Column({ type: 'decimal', precision: 5, scale: 1, name: 'humidity_max', nullable: true })
   humidityMax: number;
 
   @Column({ type: 'jsonb', name: 'required_ppe', default: '[]' })

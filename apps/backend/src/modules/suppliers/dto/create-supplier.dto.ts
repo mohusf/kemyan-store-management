@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsEmail, IsBoolean, IsDateString } from 'class-validator';
+import { IsString, IsOptional, IsEmail, IsBoolean, IsDateString, IsNumber } from 'class-validator';
 
 export class CreateSupplierDto {
   @IsString() code: string;
@@ -15,9 +15,9 @@ export class CreateSupplierDto {
 }
 
 export class CreateSupplierEvaluationDto {
-  @IsOptional() @IsString() onTimeDeliveryScore?: number;
-  @IsOptional() @IsString() qualityScore?: number;
-  @IsOptional() @IsString() priceStabilityScore?: number;
-  @IsOptional() @IsString() overallScore?: number;
+  @IsOptional() @IsNumber() onTimeDeliveryScore?: number;
+  @IsOptional() @IsNumber() qualityScore?: number;
+  @IsOptional() @IsNumber() priceStabilityScore?: number;
+  @IsOptional() @IsNumber() overallScore?: number;
   @IsOptional() @IsString() notes?: string;
 }

@@ -105,7 +105,9 @@
     "hazardous": "Hazardous",
     "information": "Information",
     "general": "General",
-    "system": "System"
+    "system": "System",
+    "user": "User",
+    "admin": "Admin"
   },
   "auth": {
     "email": "Email",
@@ -145,7 +147,11 @@
     "hazardClass": "Hazard Class",
     "storageConditions": "Storage Conditions",
     "minimumStock": "Minimum Stock",
-    "currentStock": "Current Stock"
+    "currentStock": "Current Stock",
+    "categoryAcid": "Acid",
+    "categoryBase": "Base",
+    "categorySolvent": "Solvent",
+    "categorySalt": "Salt"
   },
   "requisitions": {
     "title": "Requisitions",
@@ -181,7 +187,12 @@
     "phone": "Phone",
     "certifications": "Certifications",
     "rating": "Rating",
-    "evaluationScore": "Evaluation Score"
+    "evaluationScore": "Evaluation Score",
+    "quality": "Quality",
+    "delivery": "Delivery",
+    "price": "Price",
+    "communication": "Communication",
+    "documentation": "Documentation"
   },
   "quality": {
     "title": "Quality Control",
@@ -217,7 +228,19 @@
     "totalMaterials": "Total Materials",
     "activeSuppliers": "Active Suppliers",
     "openPOs": "Open POs",
-    "qcPassRate": "QC Pass Rate"
+    "qcPassRate": "QC Pass Rate",
+    "acids": "Acids",
+    "bases": "Bases",
+    "solvents": "Solvents",
+    "salts": "Salts",
+    "other": "Other",
+    "consumed": "Consumed",
+    "received": "Received",
+    "quality": "Quality",
+    "delivery": "Delivery",
+    "price": "Price",
+    "response": "Response",
+    "documentation": "Documentation"
   },
   "audit": {
     "title": "Audit Log",
@@ -241,7 +264,17 @@
     "qualityResults": "Quality inspection results",
     "companyName": "Company Name",
     "defaultCurrency": "Default Currency",
-    "fiscalYearStart": "Fiscal Year Start"
+    "fiscalYearStart": "Fiscal Year Start",
+    "gregorian": "Gregorian (YYYY-MM-DD)",
+    "hijri": "Hijri",
+    "bothCalendars": "Both",
+    "sarCurrency": "SAR - Saudi Riyal",
+    "usdCurrency": "USD - US Dollar",
+    "eurCurrency": "EUR - Euro",
+    "january": "January",
+    "april": "April",
+    "july": "July",
+    "october": "October"
   },
   "warehouse": {
     "title": "Warehouse",
@@ -279,6 +312,8 @@
     "qcLab": "QC Lab"
   },
   "errors": {
-    "loginFailed": "Login failed. Please check your credentials."
+    "loginFailed": "Login failed. Please check your credentials.",
+    "somethingWrong": "Something went wrong",
+    "reload": "Reload"
   }
 }

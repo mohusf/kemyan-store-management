@@ -1,5 +1,6 @@
 import React from 'react';
 import { Result, Button } from 'antd';
+import i18n from 'i18next';
 
 interface State { hasError: boolean; error?: Error; }
 
@@ -15,9 +16,9 @@ export class ErrorBoundary extends React.Component<{ children: React.ReactNode }
       return (
         <Result
           status="500"
-          title="Something went wrong"
+          title={i18n.t('errors.somethingWrong')}
           subTitle={this.state.error?.message}
-          extra={<Button type="primary" onClick={() => window.location.reload()}>Reload</Button>}
+          extra={<Button type="primary" onClick={() => window.location.reload()}>{i18n.t('errors.reload')}</Button>}
         />
       );
     }

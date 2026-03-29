@@ -24,7 +24,7 @@ export class Zone {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 50, unique: true })
+  @Column({ type: 'varchar', length: 20, unique: true })
   code: string;
 
   @Column({ type: 'varchar', length: 255, name: 'name_ar' })
@@ -46,10 +46,10 @@ export class Zone {
   @Column({ type: 'jsonb', name: 'safety_equipment', default: '[]' })
   safetyEquipment: Record<string, any>[];
 
-  @Column({ type: 'decimal', precision: 5, scale: 2, name: 'max_temperature', nullable: true })
+  @Column({ type: 'decimal', precision: 5, scale: 1, name: 'max_temperature', nullable: true })
   maxTemperature: number;
 
-  @Column({ type: 'decimal', precision: 5, scale: 2, name: 'max_humidity', nullable: true })
+  @Column({ type: 'decimal', precision: 5, scale: 1, name: 'max_humidity', nullable: true })
   maxHumidity: number;
 
   @Column({ type: 'boolean', name: 'is_active', default: true })

@@ -24,10 +24,10 @@ export class SdsRecord {
   pictograms: string[];
 
   @Column({ type: 'jsonb', name: 'h_statements', default: '[]' })
-  hStatements: Record<string, any>[];
+  hStatements: any;
 
   @Column({ type: 'jsonb', name: 'p_statements', default: '[]' })
-  pStatements: Record<string, any>[];
+  pStatements: any;
 
   @Column({ type: 'decimal', precision: 5, scale: 2, name: 'storage_temperature_min', nullable: true })
   storageTemperatureMin: number;
@@ -42,10 +42,10 @@ export class SdsRecord {
   requiredPpe: string[];
 
   @Column({ type: 'date', name: 'effective_date' })
-  effectiveDate: Date;
+  effectiveDate: string | Date;
 
   @Column({ type: 'date', name: 'superseded_date', nullable: true })
-  supersededDate: Date;
+  supersededDate: string | Date;
 
   @Column({ type: 'text', name: 'document_url', nullable: true })
   documentUrl: string;

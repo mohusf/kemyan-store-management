@@ -24,7 +24,6 @@ export class AuditService {
   async logEvent(params: LogEventParams): Promise<AuditLog> {
     const log = this.auditLogRepository.create({
       ...params,
-      hashChain: '',
     });
 
     return this.auditLogRepository.save(log);

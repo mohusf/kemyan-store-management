@@ -37,11 +37,11 @@ const ReportDashboard: React.FC = () => {
         type: 'pie',
         radius: ['40%', '70%'],
         data: [
-          { value: 35, name: 'Acids' },
-          { value: 28, name: 'Bases' },
-          { value: 22, name: 'Solvents' },
-          { value: 15, name: 'Salts' },
-          { value: 12, name: 'Other' },
+          { value: 35, name: t('reports.acids') },
+          { value: 28, name: t('reports.bases') },
+          { value: 22, name: t('reports.solvents') },
+          { value: 15, name: t('reports.salts') },
+          { value: 12, name: t('reports.other') },
         ],
         color: ['#E74C3C', '#1B4F72', '#F39C12', '#27AE60', '#3498DB'],
       },
@@ -57,8 +57,8 @@ const ReportDashboard: React.FC = () => {
     },
     yAxis: { type: 'value', name: 'kg' },
     series: [
-      { name: 'Consumed', type: 'bar', data: [420, 380, 510, 450, 490, 530], color: '#1B4F72' },
-      { name: 'Received', type: 'bar', data: [500, 350, 600, 400, 550, 480], color: '#27AE60' },
+      { name: t('reports.consumed'), type: 'bar', data: [420, 380, 510, 450, 490, 530], color: '#1B4F72' },
+      { name: t('reports.received'), type: 'bar', data: [500, 350, 600, 400, 550, 480], color: '#27AE60' },
     ],
   };
 
@@ -67,11 +67,11 @@ const ReportDashboard: React.FC = () => {
     tooltip: { trigger: 'axis' },
     radar: {
       indicator: [
-        { name: 'Quality', max: 100 },
-        { name: 'Delivery', max: 100 },
-        { name: 'Price', max: 100 },
-        { name: 'Response', max: 100 },
-        { name: 'Documentation', max: 100 },
+        { name: t('reports.quality'), max: 100 },
+        { name: t('reports.delivery'), max: 100 },
+        { name: t('reports.price'), max: 100 },
+        { name: t('reports.response'), max: 100 },
+        { name: t('reports.documentation'), max: 100 },
       ],
     },
     series: [

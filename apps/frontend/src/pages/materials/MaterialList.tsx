@@ -111,10 +111,10 @@ const MaterialList: React.FC = () => {
             style={{ width: 150 }}
             allowClear
             options={[
-              { label: 'Acid', value: 'Acid' },
-              { label: 'Base', value: 'Base' },
-              { label: 'Solvent', value: 'Solvent' },
-              { label: 'Salt', value: 'Salt' },
+              { label: t('materials.categoryAcid'), value: 'Acid' },
+              { label: t('materials.categoryBase'), value: 'Base' },
+              { label: t('materials.categorySolvent'), value: 'Solvent' },
+              { label: t('materials.categorySalt'), value: 'Salt' },
             ]}
           />
         </Space>

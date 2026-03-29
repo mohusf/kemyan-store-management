@@ -33,16 +33,16 @@ export class WasteRecord {
   batchId: string;
 
   @Column({ type: 'varchar', length: 30, name: 'waste_type' })
-  wasteType: WasteType;
+  wasteType: string;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2 })
+  @Column({ type: 'decimal', precision: 12, scale: 3 })
   quantity: number;
 
   @Column({ type: 'varchar', length: 20 })
   unit: string;
 
   @Column({ type: 'varchar', length: 30, name: 'disposal_method' })
-  disposalMethod: DisposalMethod;
+  disposalMethod: string;
 
   @Column({ type: 'uuid', name: 'disposed_by' })
   disposedBy: string;

@@ -22,8 +22,8 @@ export class Coa {
   @Column({ type: 'jsonb', nullable: true })
   parameters: Record<string, any>;
 
-  @Column({ type: 'timestamp', name: 'issued_at' })
-  issuedAt: Date;
+  @Column({ type: 'date', name: 'issued_at' })
+  issuedAt: string | Date;
 
   @Column({ type: 'uuid', name: 'verified_by', nullable: true })
   verifiedBy: string;

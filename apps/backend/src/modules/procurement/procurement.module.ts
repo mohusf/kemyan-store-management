@@ -6,11 +6,12 @@ import { ProcurementController } from './procurement.controller';
 import { PurchaseOrder } from './entities/purchase-order.entity';
 import { PurchaseOrderLine } from './entities/purchase-order-line.entity';
 import { GoodsReceivedNote } from './entities/goods-received-note.entity';
+import { GrnLine } from './entities/grn-line.entity';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([PurchaseOrder, PurchaseOrderLine, GoodsReceivedNote]),
+    TypeOrmModule.forFeature([PurchaseOrder, PurchaseOrderLine, GoodsReceivedNote, GrnLine]),
     CqrsModule,
     AuthModule,
   ],

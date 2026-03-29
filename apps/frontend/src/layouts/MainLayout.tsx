@@ -131,7 +131,7 @@ const MainLayout: React.FC = () => {
     {
       key: 'profile',
       icon: <UserOutlined />,
-      label: user?.name || 'User',
+      label: user?.name || t('common.user'),
     },
     { type: 'divider' },
     {
@@ -233,7 +233,7 @@ const MainLayout: React.FC = () => {
               <Space style={{ cursor: 'pointer' }}>
                 <Avatar icon={<UserOutlined />} style={{ backgroundColor: '#1B4F72' }} />
                 {!sidebarCollapsed && (
-                  <Text>{user?.name || 'Admin'}</Text>
+                  <Text>{user?.name || t('common.admin')}</Text>
                 )}
               </Space>
             </Dropdown>

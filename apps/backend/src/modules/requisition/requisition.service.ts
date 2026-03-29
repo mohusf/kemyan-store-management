@@ -62,6 +62,21 @@ export class RequisitionService {
     return saved;
   }
 
+  private statusToRole(status: RequisitionStatus): string {
+    switch (status) {
+      case RequisitionStatus.PENDING_SUPERVISOR:
+        return 'supervisor';
+      case RequisitionStatus.PENDING_STORE_MANAGER:
+        return 'store_manager';
+      case RequisitionStatus.PENDING_PROCUREMENT:
+        return 'procurement';
+      case RequisitionStatus.PENDING_PLANT_MANAGER:
+        return 'plant_manager';
+      default:
+        return status;
+    }
+  }
+
   async approve(id: string, approverId: string, comments?: string): Promise<Requisition> {
     const requisition = await this.findOne(id);
     const previousStatus = requisition.status;
@@ -73,7 +88,7 @@ export class RequisitionService {
       comments,
       decidedAt: new Date(),
       stepOrder: (requisition.approvalSteps?.length || 0) + 1,
-      approverRole: requisition.status,
+      approverRole: this.statusToRole(requisition.status),
     });
     await this.approvalStepRepository.save(step);
 
@@ -99,7 +114,7 @@ export class RequisitionService {
       comments: reason,
       decidedAt: new Date(),
       stepOrder: (requisition.approvalSteps?.length || 0) + 1,
-      approverRole: requisition.status,
+      approverRole: this.statusToRole(requisition.status),
     });
     await this.approvalStepRepository.save(step);
 

@@ -30,16 +30,16 @@ export class Material {
   @JoinColumn({ name: 'category_id' })
   category: MaterialCategory;
 
-  @Column({ type: 'varchar', length: 50, name: 'unit_of_measure' })
+  @Column({ type: 'varchar', length: 20, name: 'unit_of_measure' })
   unit: string;
 
   @Column({ type: 'jsonb', name: 'ghs_classification', nullable: true })
   ghsClassification: Record<string, any>;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2, name: 'reorder_point', default: 0 })
+  @Column({ type: 'decimal', precision: 12, scale: 3, name: 'reorder_point', default: 0 })
   reorderPoint: number;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2, name: 'reorder_quantity', default: 0 })
+  @Column({ type: 'decimal', precision: 12, scale: 3, name: 'reorder_quantity', default: 0 })
   reorderQuantity: number;
 
   @Column({ type: 'decimal', precision: 5, scale: 2, name: 'minimum_shelf_life_percent', default: 50 })

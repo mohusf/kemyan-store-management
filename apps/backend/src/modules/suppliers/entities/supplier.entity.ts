@@ -41,7 +41,7 @@ export class Supplier {
   gmpPlusCertNumber: string;
 
   @Column({ type: 'date', name: 'gmp_plus_cert_expiry', nullable: true })
-  gmpPlusCertExpiry: Date;
+  gmpPlusCertExpiry: string | Date;
 
   @Column({ type: 'varchar', length: 100, name: 'famiqs_cert_number', nullable: true })
   famiqsCertNumber: string;

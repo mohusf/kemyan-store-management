@@ -188,14 +188,11 @@ export class InventoryService {
 
       const runningBalance = await this.calculateRunningBalance(materialId, locationId, manager);
 
-      const transactionType =
-        quantity >= 0 ? TransactionType.ADJUST : TransactionType.ADJUST;
-
       const transaction = manager.create(InventoryTransaction, {
         batchId,
         materialId,
         locationId,
-        transactionType,
+        transactionType: TransactionType.ADJUST,
         quantity,
         referenceType: 'adjustment',
         referenceId: batchId,
