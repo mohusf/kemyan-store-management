@@ -33,8 +33,13 @@ coverage/
 # Docker volumes (local dev)
 .docker-data/
 
-# TypeScript build info
+# TypeScript build info and compiled output in source dirs
 *.tsbuildinfo
+apps/frontend/src/**/*.js
+apps/frontend/src/**/*.js.map
+
+# Netlify
+.netlify/
 
 # Temporary files
 tmp/
