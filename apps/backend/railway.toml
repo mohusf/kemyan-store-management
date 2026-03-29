@@ -1,0 +1,7 @@
+[build]
+  builder = "NIXPACKS"
+
+[deploy]
+  startCommand = "node dist/main.js"
+  healthcheckPath = "/api/v1"
+  healthcheckTimeout = 30
