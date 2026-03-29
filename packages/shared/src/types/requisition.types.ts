@@ -4,11 +4,12 @@
  */
 export enum RequisitionStatus {
   DRAFT = 'draft',
-  PENDING_APPROVAL = 'pending_approval',
+  PENDING_SUPERVISOR = 'pending_supervisor',
+  PENDING_STORE_MANAGER = 'pending_store_manager',
+  PENDING_PROCUREMENT = 'pending_procurement',
+  PENDING_PLANT_MANAGER = 'pending_plant_manager',
   APPROVED = 'approved',
   REJECTED = 'rejected',
-  PARTIALLY_FULFILLED = 'partially_fulfilled',
-  FULFILLED = 'fulfilled',
   CANCELLED = 'cancelled',
 }
 

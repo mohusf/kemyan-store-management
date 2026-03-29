@@ -24,11 +24,11 @@ const SupplierDetail: React.FC = () => {
   };
 
   const evaluationScores = [
-    { category: 'Quality', score: 92 },
-    { category: 'Delivery', score: 88 },
-    { category: 'Price', score: 78 },
-    { category: 'Communication', score: 95 },
-    { category: 'Documentation', score: 85 },
+    { category: t('suppliers.quality'), score: 92 },
+    { category: t('suppliers.delivery'), score: 88 },
+    { category: t('suppliers.price'), score: 78 },
+    { category: t('suppliers.communication'), score: 95 },
+    { category: t('suppliers.documentation'), score: 85 },
   ];
 
   const recentOrders = [

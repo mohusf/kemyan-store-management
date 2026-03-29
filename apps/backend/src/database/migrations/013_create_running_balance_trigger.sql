@@ -18,6 +18,9 @@ RETURNS TRIGGER AS $$
 DECLARE
     current_balance DECIMAL(12,3);
 BEGIN
+    -- Acquire advisory lock to prevent concurrent balance calculations for the same material
+    PERFORM pg_advisory_xact_lock(hashtext(NEW.material_id::text));
+
     -- Sum all existing transaction quantities for this material
     SELECT COALESCE(SUM(quantity), 0)
     INTO current_balance

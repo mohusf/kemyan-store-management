@@ -250,7 +250,12 @@
     "entity": "Entity",
     "entityId": "Entity ID",
     "details": "Details",
-    "ipAddress": "IP Address"
+    "ipAddress": "IP Address",
+    "entityRequisition": "Requisition",
+    "entityPurchaseOrder": "Purchase Order",
+    "entityGRN": "GRN",
+    "entityInspection": "Inspection",
+    "entityMaterial": "Material"
   },
   "settings": {
     "title": "Settings",

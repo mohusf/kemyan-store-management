@@ -250,7 +250,12 @@
     "entity": "الكيان",
     "entityId": "رقم الكيان",
     "details": "التفاصيل",
-    "ipAddress": "عنوان IP"
+    "ipAddress": "عنوان IP",
+    "entityRequisition": "طلب صرف",
+    "entityPurchaseOrder": "أمر شراء",
+    "entityGRN": "إشعار استلام",
+    "entityInspection": "فحص",
+    "entityMaterial": "مادة"
   },
   "settings": {
     "title": "الإعدادات",

@@ -85,11 +85,11 @@ const AuditLog: React.FC = () => {
             style={{ width: 150 }}
             allowClear
             options={[
-              { label: 'Requisition', value: 'Requisition' },
-              { label: 'PurchaseOrder', value: 'PurchaseOrder' },
-              { label: 'GRN', value: 'GRN' },
-              { label: 'Inspection', value: 'Inspection' },
-              { label: 'Material', value: 'Material' },
+              { label: t('audit.entityRequisition'), value: 'Requisition' },
+              { label: t('audit.entityPurchaseOrder'), value: 'PurchaseOrder' },
+              { label: t('audit.entityGRN'), value: 'GRN' },
+              { label: t('audit.entityInspection'), value: 'Inspection' },
+              { label: t('audit.entityMaterial'), value: 'Material' },
             ]}
           />
           <RangePicker />

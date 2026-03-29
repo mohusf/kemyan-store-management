@@ -47,7 +47,7 @@ export class Supplier {
   famiqsCertNumber: string;
 
   @Column({ type: 'date', name: 'famiqs_cert_expiry', nullable: true })
-  famiqsCertExpiry: Date;
+  famiqsCertExpiry: string | Date;
 
   @Column({
     type: 'varchar',
