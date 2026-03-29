@@ -13,7 +13,7 @@ services:
   - type: web
     name: kemyan-backend
     runtime: node
-    plan: free
+    plan: starter
     rootDir: apps/backend
     buildCommand: npm install && npx tsc
     startCommand: node dist/main.js
@@ -52,7 +52,7 @@ services:
   - type: web
     name: kemyan-frontend
     runtime: static
-    plan: free
+    plan: starter
     rootDir: apps/frontend
     buildCommand: npm install --legacy-peer-deps && npm run build
     staticPublishPath: dist
