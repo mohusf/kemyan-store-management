@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+.next/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Test coverage
+coverage/
+
+# Docker volumes (local dev)
+.docker-data/
+
+# TypeScript build info and compiled output in source dirs
+*.tsbuildinfo
+apps/frontend/src/**/*.js
+apps/frontend/src/**/*.js.map
+
+# Netlify
+.netlify/
+
+# Temporary files
+tmp/
+temp/

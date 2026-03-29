@@ -1,0 +1,88 @@
+version: "3.9"
+
+services:
+  # ───────────────────────────── PostgreSQL ─────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: kemyan-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: kemyan_store
+      POSTGRES_USER: kemyan
+      POSTGRES_PASSWORD: kemyan_dev_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - kemyan-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kemyan -d kemyan_store"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ───────────────────────────── Redis ──────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: kemyan-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - kemyan-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ───────────────────────────── Backend API ────────────────────────────
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    container_name: kemyan-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_URL: postgres://kemyan:kemyan_dev_password@postgres:5432/kemyan_store
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: kemyan-jwt-dev-secret-change-in-production
+      CORS_ORIGINS: http://localhost:5173
+    networks:
+      - kemyan-network
+
+  # ───────────────────────────── Frontend SPA ──────────────────────────
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+    container_name: kemyan-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - kemyan-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  kemyan-network:
+    driver: bridge
