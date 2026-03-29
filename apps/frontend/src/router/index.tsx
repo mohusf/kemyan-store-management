@@ -42,6 +42,8 @@ const ReportDashboard = () => lazy(() => import('../pages/reports/ReportDashboar
 const AuditLog = () => lazy(() => import('../pages/audit/AuditLog'));
 const Settings = () => lazy(() => import('../pages/settings/Settings'));
 
+const basename = import.meta.env.BASE_URL || '/';
+
 export const router = createBrowserRouter([
   {
     path: '/login',
@@ -81,4 +83,4 @@ export const router = createBrowserRouter([
       { path: 'settings', element: <Settings /> },
     ],
   },
-]);
+], { basename });
