@@ -1,0 +1,55 @@
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+
+export enum ZoneType {
+  RM_ACID = 'RM-ACID',
+  RM_CALCIUM = 'RM-CALCIUM',
+  RM_GENERAL = 'RM-GENERAL',
+  RM_FLAMMABLE = 'RM-FLAMMABLE',
+  RM_OXIDIZER = 'RM-OXIDIZER',
+  FG = 'FG',
+  QC_HOLD = 'QC-HOLD',
+  QUARANTINE = 'QUARANTINE',
+  PACKAGING = 'PACKAGING',
+  WASTE = 'WASTE',
+  COLD_STORAGE = 'COLD-STORAGE',
+}
+
+@Entity('zones')
+export class Zone {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ type: 'varchar', length: 50, unique: true })
+  code: string;
+
+  @Column({ type: 'varchar', length: 255, name: 'name_ar' })
+  nameAr: string;
+
+  @Column({ type: 'varchar', length: 255, name: 'name_en' })
+  nameEn: string;
+
+  @Column({
+    type: 'enum',
+    enum: ZoneType,
+    name: 'zone_type',
+  })
+  zoneType: ZoneType;
+
+  @Column({ type: 'jsonb', name: 'allowed_compatibility_groups', default: '[]' })
+  allowedCompatibilityGroups: string[];
+
+  @Column({ type: 'jsonb', name: 'safety_equipment', default: '[]' })
+  safetyEquipment: Record<string, any>[];
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+}

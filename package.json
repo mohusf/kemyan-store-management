@@ -1,0 +1,36 @@
+{
+  "name": "kemyan-store-management",
+  "version": "0.1.0",
+  "private": true,
+  "description": "KEMYAN IMS-compliant store management system — a TypeScript modular monolith for chemical inventory, procurement, and feed traceability",
+  "license": "UNLICENSED",
+  "workspaces": [
+    "apps/backend",
+    "apps/frontend",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm run start:dev -w apps/backend",
+    "dev:frontend": "npm run dev -w apps/frontend",
+    "build": "npm run build -w apps/backend && npm run build -w apps/frontend",
+    "build:backend": "npm run build -w apps/backend",
+    "build:frontend": "npm run build -w apps/frontend",
+    "test": "npm run test -w apps/backend && npm run test -w apps/frontend",
+    "test:backend": "npm run test -w apps/backend",
+    "test:frontend": "npm run test -w apps/frontend",
+    "lint": "npm run lint -w apps/backend && npm run lint -w apps/frontend",
+    "db:migrate": "npm run migration:run -w apps/backend",
+    "db:seed": "npm run seed -w apps/backend",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}
