@@ -43,6 +43,8 @@ export class CaslAbilityFactory {
     const roleName = user.role?.name;
 
     switch (roleName) {
+      case 'SYSTEM_ADMIN':
+      case 'PLANT_MANAGER':
       case 'plant_manager':
         can(Action.Manage, 'all');
         break;
