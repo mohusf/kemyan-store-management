@@ -16,7 +16,7 @@ export default registerAs(
     synchronize: false,
     logging: process.env.DB_LOGGING === 'true',
     ssl:
-      process.env.DB_SSL === 'true'
+      process.env.DB_SSL === 'true' || process.env.NODE_ENV === 'production'
         ? { rejectUnauthorized: false }
         : false,
     extra: {

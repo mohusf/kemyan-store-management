@@ -12,11 +12,10 @@ services:
   # ── Backend API ──────────────────────────────────────────────
   - type: web
     name: kemyan-backend
-    runtime: node
+    runtime: docker
     plan: starter
-    rootDir: apps/backend
-    buildCommand: npm install && npx tsc
-    startCommand: node dist/main.js
+    dockerfilePath: apps/backend/Dockerfile
+    dockerContext: .
     healthCheckPath: /api/v1
     envVars:
       - key: NODE_ENV
@@ -43,8 +42,14 @@ services:
         fromDatabase:
           name: kemyan-postgres
           property: database
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kemyan-postgres
+          property: connectionString
       - key: JWT_SECRET
         generateValue: true
+      - key: JWT_EXPIRY
+        value: "24h"
       - key: CORS_ORIGINS
         value: https://kemyan-frontend.onrender.com
 
@@ -54,7 +59,7 @@ services:
     runtime: static
     plan: starter
     rootDir: apps/frontend
-    buildCommand: npm install --legacy-peer-deps && npm run build
+    buildCommand: cd ../.. && npm ci --workspace=apps/frontend --workspace=packages/shared --include-workspace-root && npm run build -w apps/frontend
     staticPublishPath: dist
     headers:
       - path: /*
@@ -62,8 +67,11 @@ services:
         value: SAMEORIGIN
     routes:
       - type: rewrite
+        source: /api/*
+        destination: https://kemyan-backend.onrender.com/api/*
+      - type: rewrite
         source: /*
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        value: https://kemyan-backend.onrender.com
+        value: https://kemyan-backend.onrender.com/api/v1
