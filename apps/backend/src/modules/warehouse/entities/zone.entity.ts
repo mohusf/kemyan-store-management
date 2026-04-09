@@ -3,7 +3,6 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 export enum ZoneType {
@@ -25,7 +24,7 @@ export class Zone {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 50, unique: true })
+  @Column({ type: 'varchar', length: 20, unique: true })
   code: string;
 
   @Column({ type: 'varchar', length: 255, name: 'name_ar' })
@@ -35,11 +34,11 @@ export class Zone {
   nameEn: string;
 
   @Column({
-    type: 'enum',
-    enum: ZoneType,
+    type: 'varchar',
+    length: 30,
     name: 'zone_type',
   })
-  zoneType: ZoneType;
+  zoneType: string;
 
   @Column({ type: 'jsonb', name: 'allowed_compatibility_groups', default: '[]' })
   allowedCompatibilityGroups: string[];
@@ -47,9 +46,15 @@ export class Zone {
   @Column({ type: 'jsonb', name: 'safety_equipment', default: '[]' })
   safetyEquipment: Record<string, any>[];
 
+  @Column({ type: 'decimal', precision: 5, scale: 1, name: 'max_temperature', nullable: true })
+  maxTemperature: number;
+
+  @Column({ type: 'decimal', precision: 5, scale: 1, name: 'max_humidity', nullable: true })
+  maxHumidity: number;
+
+  @Column({ type: 'boolean', name: 'is_active', default: true })
+  isActive: boolean;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

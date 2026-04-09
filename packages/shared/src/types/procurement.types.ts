@@ -1,40 +1,33 @@
 export enum POStatus {
-  DRAFT = 'DRAFT',
-  PENDING_APPROVAL = 'PENDING_APPROVAL',
-  APPROVED = 'APPROVED',
-  SENT_TO_SUPPLIER = 'SENT_TO_SUPPLIER',
-  PARTIALLY_RECEIVED = 'PARTIALLY_RECEIVED',
-  FULLY_RECEIVED = 'FULLY_RECEIVED',
-  CANCELLED = 'CANCELLED',
+  DRAFT = 'draft',
+  PENDING_APPROVAL = 'pending_approval',
+  APPROVED = 'approved',
+  SENT = 'sent',
+  PARTIALLY_RECEIVED = 'partially_received',
+  FULLY_RECEIVED = 'fully_received',
+  CANCELLED = 'cancelled',
 }
 
 export enum GRNStatus {
-  /** GRN created, goods pending QC inspection */
-  PENDING_INSPECTION = 'PENDING_INSPECTION',
-  /** QC passed, goods accepted into inventory */
-  ACCEPTED = 'ACCEPTED',
-  /** QC failed or goods damaged, pending return to supplier */
-  REJECTED = 'REJECTED',
-  /** Partially accepted (split batch) */
-  PARTIALLY_ACCEPTED = 'PARTIALLY_ACCEPTED',
+  /** GRN created, goods pending inspection */
+  PENDING = 'pending',
+  /** Inspection passed */
+  PASSED = 'passed',
+  /** Inspection failed */
+  FAILED = 'failed',
+  /** Partially accepted */
+  PARTIAL = 'partial',
 }
 
-export enum Currency {
-  /** Saudi Riyal */
-  SAR = 'SAR',
-  /** US Dollar */
-  USD = 'USD',
-  /** Euro */
-  EUR = 'EUR',
-}
-
-export interface PurchaseOrderLineItem {
+export interface PurchaseOrderLine {
   id: string;
+  purchaseOrderId: string;
   materialId: string;
   quantity: number;
   unitPrice: number;
-  currency: Currency;
+  totalPrice: number;
   receivedQuantity: number;
+  notes?: string;
 }
 
 export interface PurchaseOrder {
@@ -42,17 +35,13 @@ export interface PurchaseOrder {
   poNumber: string;
   supplierId: string;
   status: POStatus;
-  lineItems: PurchaseOrderLineItem[];
-  currency: Currency;
-  /** Total value before VAT */
-  subtotal: number;
-  vatAmount: number;
-  totalAmount: number;
-  /** Linked requisition IDs that triggered this PO */
-  requisitionIds: string[];
-  expectedDeliveryDate?: string;
+  totalAmount?: number;
+  vatAmount?: number;
+  currency: string;
+  /** ZATCA e-invoicing reference */
+  zatcaInvoiceId?: string;
   notes?: string;
-  createdBy: string;
+  createdBy?: string;
   approvedBy?: string;
   createdAt: string;
   updatedAt: string;
@@ -61,30 +50,26 @@ export interface PurchaseOrder {
 export interface GoodsReceivedNote {
   id: string;
   grnNumber: string;
-  purchaseOrderId: string;
-  supplierId: string;
-  status: GRNStatus;
+  purchaseOrderId?: string;
   receivedBy: string;
   receivedAt: string;
-  lineItems: GRNLineItem[];
-  /** Whether supplier delivery vehicle was inspected */
-  vehicleInspected: boolean;
-  deliveryNoteReference?: string;
+  inspectionStatus: string;
   notes?: string;
   createdAt: string;
-  updatedAt: string;
 }
 
-export interface GRNLineItem {
+/**
+ * Line-level detail for each GRN, linking to PO lines and creating batches.
+ * Maps to the grn_lines table.
+ */
+export interface GRNLine {
   id: string;
-  poLineItemId: string;
+  grnId: string;
+  poLineId?: string;
   materialId: string;
-  receivedQuantity: number;
-  acceptedQuantity: number;
-  rejectedQuantity: number;
-  batchNumber: string;
-  manufacturingDate?: string;
-  expiryDate?: string;
-  /** Certificate of Analysis attached */
-  coaAttached: boolean;
+  batchId?: string;
+  quantityReceived: number;
+  quantityAccepted?: number;
+  quantityRejected: number;
+  rejectionReason?: string;
 }

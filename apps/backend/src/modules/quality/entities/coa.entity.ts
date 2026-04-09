@@ -2,9 +2,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  CreateDateColumn,
 } from 'typeorm';
 
-@Entity('coas')
+@Entity('certificates_of_analysis')
 export class Coa {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -21,9 +22,15 @@ export class Coa {
   @Column({ type: 'jsonb', nullable: true })
   parameters: Record<string, any>;
 
-  @Column({ type: 'timestamp', name: 'issued_at' })
-  issuedAt: Date;
+  @Column({ type: 'date', name: 'issued_at' })
+  issuedAt: string | Date;
 
   @Column({ type: 'uuid', name: 'verified_by', nullable: true })
   verifiedBy: string;
+
+  @Column({ type: 'timestamp', name: 'verified_at', nullable: true })
+  verifiedAt: Date;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }

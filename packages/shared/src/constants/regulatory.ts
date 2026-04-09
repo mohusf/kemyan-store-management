@@ -14,7 +14,7 @@ export const SFDA = {
   NOTIFICATION_REQUIRED_CATEGORIES: [
     'RAW_MATERIAL',
     'CHEMICAL',
-    'PACKAGING',
+    'PACKAGING_MATERIAL',
   ] as const,
   /** Maximum hours allowed for product recall notification to SFDA */
   RECALL_NOTIFICATION_HOURS: 24,

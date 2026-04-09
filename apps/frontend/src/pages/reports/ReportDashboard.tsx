@@ -10,7 +10,7 @@ const ReportDashboard: React.FC = () => {
   const { t } = useTranslation();
 
   const inventoryTrendOption = {
-    title: { text: 'Inventory Value Trend', left: 'center' },
+    title: { text: t('reports.inventoryValueTrend'), left: 'center' },
     tooltip: { trigger: 'axis' },
     xAxis: {
       type: 'category',
@@ -30,18 +30,18 @@ const ReportDashboard: React.FC = () => {
   };
 
   const categoryDistributionOption = {
-    title: { text: 'Materials by Category', left: 'center' },
+    title: { text: t('reports.materialsByCategory'), left: 'center' },
     tooltip: { trigger: 'item' },
     series: [
       {
         type: 'pie',
         radius: ['40%', '70%'],
         data: [
-          { value: 35, name: 'Acids' },
-          { value: 28, name: 'Bases' },
-          { value: 22, name: 'Solvents' },
-          { value: 15, name: 'Salts' },
-          { value: 12, name: 'Other' },
+          { value: 35, name: t('reports.acids') },
+          { value: 28, name: t('reports.bases') },
+          { value: 22, name: t('reports.solvents') },
+          { value: 15, name: t('reports.salts') },
+          { value: 12, name: t('reports.other') },
         ],
         color: ['#E74C3C', '#1B4F72', '#F39C12', '#27AE60', '#3498DB'],
       },
@@ -49,7 +49,7 @@ const ReportDashboard: React.FC = () => {
   };
 
   const consumptionOption = {
-    title: { text: 'Monthly Consumption', left: 'center' },
+    title: { text: t('reports.monthlyConsumption'), left: 'center' },
     tooltip: { trigger: 'axis' },
     xAxis: {
       type: 'category',
@@ -57,21 +57,21 @@ const ReportDashboard: React.FC = () => {
     },
     yAxis: { type: 'value', name: 'kg' },
     series: [
-      { name: 'Consumed', type: 'bar', data: [420, 380, 510, 450, 490, 530], color: '#1B4F72' },
-      { name: 'Received', type: 'bar', data: [500, 350, 600, 400, 550, 480], color: '#27AE60' },
+      { name: t('reports.consumed'), type: 'bar', data: [420, 380, 510, 450, 490, 530], color: '#1B4F72' },
+      { name: t('reports.received'), type: 'bar', data: [500, 350, 600, 400, 550, 480], color: '#27AE60' },
     ],
   };
 
   const supplierPerformanceOption = {
-    title: { text: 'Supplier Performance', left: 'center' },
+    title: { text: t('reports.supplierPerformance'), left: 'center' },
     tooltip: { trigger: 'axis' },
     radar: {
       indicator: [
-        { name: 'Quality', max: 100 },
-        { name: 'Delivery', max: 100 },
-        { name: 'Price', max: 100 },
-        { name: 'Response', max: 100 },
-        { name: 'Documentation', max: 100 },
+        { name: t('reports.quality'), max: 100 },
+        { name: t('reports.delivery'), max: 100 },
+        { name: t('reports.price'), max: 100 },
+        { name: t('reports.response'), max: 100 },
+        { name: t('reports.documentation'), max: 100 },
       ],
     },
     series: [
@@ -94,10 +94,10 @@ const ReportDashboard: React.FC = () => {
             defaultValue="monthly"
             style={{ width: 120 }}
             options={[
-              { label: 'Daily', value: 'daily' },
-              { label: 'Weekly', value: 'weekly' },
-              { label: 'Monthly', value: 'monthly' },
-              { label: 'Yearly', value: 'yearly' },
+              { label: t('common.daily'), value: 'daily' },
+              { label: t('common.weekly'), value: 'weekly' },
+              { label: t('common.monthly'), value: 'monthly' },
+              { label: t('common.yearly'), value: 'yearly' },
             ]}
           />
           <RangePicker />
@@ -106,16 +106,16 @@ const ReportDashboard: React.FC = () => {
 
       <Row gutter={[16, 16]}>
         <Col xs={12} sm={6}>
-          <Card><Statistic title="Total Materials" value={1243} /></Card>
+          <Card><Statistic title={t('reports.totalMaterials')} value={1243} /></Card>
         </Col>
         <Col xs={12} sm={6}>
-          <Card><Statistic title="Active Suppliers" value={24} /></Card>
+          <Card><Statistic title={t('reports.activeSuppliers')} value={24} /></Card>
         </Col>
         <Col xs={12} sm={6}>
-          <Card><Statistic title="Open POs" value={7} valueStyle={{ color: '#F39C12' }} /></Card>
+          <Card><Statistic title={t('reports.openPOs')} value={7} valueStyle={{ color: '#F39C12' }} /></Card>
         </Col>
         <Col xs={12} sm={6}>
-          <Card><Statistic title="QC Pass Rate" value={94.5} suffix="%" valueStyle={{ color: '#27AE60' }} /></Card>
+          <Card><Statistic title={t('reports.qcPassRate')} value={94.5} suffix="%" valueStyle={{ color: '#27AE60' }} /></Card>
         </Col>
       </Row>
 

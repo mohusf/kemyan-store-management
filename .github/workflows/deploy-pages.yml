@@ -29,11 +29,11 @@ jobs:
 
       - name: Install frontend dependencies
         working-directory: apps/frontend
-        run: npm install --legacy-peer-deps
+        run: npm install --legacy-peer-deps --ignore-scripts
 
       - name: Build with Vite
         working-directory: apps/frontend
-        run: npx vite build
+        run: ./node_modules/.bin/vite build
         env:
           GITHUB_PAGES: "true"
 

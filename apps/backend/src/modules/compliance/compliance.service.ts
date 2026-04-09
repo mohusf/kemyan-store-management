@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, IsNull } from 'typeorm';
 import { SdsRecord } from './entities/sds-record.entity';
 import { WasteRecord } from './entities/waste-record.entity';
 import { PpeIssuance } from './entities/ppe-issuance.entity';
@@ -21,6 +21,15 @@ export class ComplianceService {
     return this.sdsRepository.save(record);
   }
 
+  async findAllSds(page = 1, limit = 20): Promise<{ data: SdsRecord[]; total: number }> {
+    const [data, total] = await this.sdsRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+    return { data, total };
+  }
+
   async findSdsByMaterial(materialId: string): Promise<SdsRecord[]> {
     return this.sdsRepository.find({
       where: { materialId },
@@ -30,7 +39,7 @@ export class ComplianceService {
 
   async findCurrentSds(materialId: string): Promise<SdsRecord> {
     const sds = await this.sdsRepository.findOne({
-      where: { materialId, supersededDate: undefined },
+      where: { materialId, supersededDate: IsNull() },
       order: { effectiveDate: 'DESC' },
     });
     if (!sds) {

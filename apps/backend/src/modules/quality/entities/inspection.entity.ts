@@ -27,21 +27,21 @@ export class Inspection {
   batchId: string;
 
   @Column({
-    type: 'enum',
-    enum: InspectionType,
+    type: 'varchar',
+    length: 30,
     name: 'inspection_type',
   })
-  inspectionType: InspectionType;
+  inspectionType: string;
 
   @Column({ type: 'uuid', name: 'inspector_id' })
   inspectorId: string;
 
   @Column({
-    type: 'enum',
-    enum: InspectionResult,
+    type: 'varchar',
+    length: 30,
     default: InspectionResult.PENDING,
   })
-  result: InspectionResult;
+  result: string;
 
   @Column({ type: 'jsonb', nullable: true })
   parameters: Record<string, any>;
@@ -51,4 +51,7 @@ export class Inspection {
 
   @Column({ type: 'timestamp', name: 'inspected_at' })
   inspectedAt: Date;
+
+  @Column({ type: 'text', nullable: true })
+  notes: string;
 }

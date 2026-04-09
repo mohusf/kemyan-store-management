@@ -1,29 +1,27 @@
 export enum TransactionType {
   /** Goods received into the warehouse */
-  RECEIVE = 'RECEIVE',
+  RECEIVE = 'receive',
   /** Material issued out to a department or production */
-  ISSUE = 'ISSUE',
+  ISSUE = 'issue',
   /** Inter-zone or inter-warehouse transfer */
-  TRANSFER = 'TRANSFER',
+  TRANSFER = 'transfer',
   /** Manual stock adjustment (cycle count correction, etc.) */
-  ADJUST = 'ADJUST',
+  ADJUST = 'adjust',
   /** Material returned from production or department */
-  RETURN = 'RETURN',
+  RETURN = 'return',
   /** Damaged, expired, or condemned stock removal */
-  WRITE_OFF = 'WRITE_OFF',
+  WRITE_OFF = 'write_off',
 }
 
 export enum QualityStatus {
   /** Awaiting QC inspection; material must not be used */
-  QUARANTINE = 'QUARANTINE',
+  QUARANTINE = 'quarantine',
   /** Passed QC inspection and cleared for use */
-  APPROVED = 'APPROVED',
+  APPROVED = 'approved',
   /** Failed QC inspection; pending disposition (return/destroy) */
-  REJECTED = 'REJECTED',
-  /** Approaching or past retest date; needs re-inspection */
-  RETEST_REQUIRED = 'RETEST_REQUIRED',
+  REJECTED = 'rejected',
   /** Past shelf-life expiry; must not be used */
-  EXPIRED = 'EXPIRED',
+  EXPIRED = 'expired',
 }
 
 /**
@@ -32,58 +30,58 @@ export enum QualityStatus {
  */
 export enum GmpPlusStatus {
   /** Sourced from a GMP+ certified supplier */
-  ASSURED = 'ASSURED',
+  ASSURED = 'assured',
   /** Not covered by GMP+ certification */
-  NON_ASSURED = 'NON_ASSURED',
-}
-
-export enum BatchStatus {
-  ACTIVE = 'ACTIVE',
-  CONSUMED = 'CONSUMED',
-  EXPIRED = 'EXPIRED',
-  QUARANTINED = 'QUARANTINED',
-  WRITTEN_OFF = 'WRITTEN_OFF',
+  NON_ASSURED = 'non_assured',
 }
 
 export interface Batch {
   id: string;
   materialId: string;
-  /** Supplier or internal batch/lot number */
-  batchNumber: string;
-  quantity: number;
-  qualityStatus: QualityStatus;
-  gmpPlusStatus: GmpPlusStatus;
-  batchStatus: BatchStatus;
+  /** Unique lot number for this batch */
+  lotNumber: string;
+  /** Supplier who provided this batch */
+  supplierId?: string;
+  /** Batch number as provided by the supplier */
+  supplierBatchNumber?: string;
   /** ISO 8601 date of manufacture */
-  manufacturingDate?: string;
+  manufactureDate?: string;
   /** ISO 8601 expiry date; used by FEFO picking logic */
   expiryDate?: string;
-  /** ISO 8601 date when retest is due */
-  retestDate?: string;
-  /** Warehouse zone / location where this batch is stored */
-  storageLocationId: string;
-  /** GRN ID that received this batch */
-  grnId?: string;
+  /** ISO 8601 date when this batch was received */
+  receivedDate?: string;
+  /** Quantity originally received */
+  quantityReceived: number;
+  /** Quantity currently available */
+  quantityAvailable: number;
+  qualityStatus: QualityStatus;
+  gmpPlusStatus?: GmpPlusStatus;
   /** Certificate of Analysis document ID, if attached */
   coaDocumentId?: string;
+  /** Storage location where this batch is stored */
+  storageLocationId?: string;
+  /** Array of source batch UUIDs for finished goods traceability */
+  rawMaterialBatches?: string[];
+  /** Production order reference, if applicable */
+  productionOrderId?: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface InventoryTransaction {
-  id: string;
-  transactionType: TransactionType;
-  materialId: string;
+  id: number;
   batchId?: string;
+  materialId: string;
+  locationId?: string;
+  transactionType: TransactionType;
   quantity: number;
-  /** Location the material was moved from (for TRANSFER, ISSUE) */
-  fromLocationId?: string;
-  /** Location the material was moved to (for TRANSFER, RECEIVE) */
-  toLocationId?: string;
-  /** Reference document (PO number, requisition ID, etc.) */
-  referenceId?: string;
+  /** Type of reference document (e.g. 'purchase_order', 'requisition') */
   referenceType?: string;
-  reason?: string;
+  /** UUID of the reference document */
+  referenceId?: string;
   performedBy: string;
+  reason?: string;
+  /** Running balance of the material after this transaction */
+  runningBalance: number;
   createdAt: string;
 }

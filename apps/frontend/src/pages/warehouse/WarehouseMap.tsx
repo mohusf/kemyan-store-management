@@ -1,119 +1,71 @@
-import React from 'react';
-import { Card, Row, Col, Typography, Tag, Tooltip, Badge, Space } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Card, Row, Col, Typography, Tag, Space, Spin, Statistic } from 'antd';
 import { useTranslation } from 'react-i18next';
+import api from '../../services/api';
 
 const { Title, Text } = Typography;
 
 interface Zone {
   id: string;
-  name: string;
-  type: string;
-  capacity: number;
-  used: number;
-  locations: Location[];
-  color: string;
+  code: string;
+  nameEn: string;
+  nameAr?: string;
+  zoneType: string;
+  maxTemperature: number;
+  maxHumidity: number;
+  safetyEquipment: Record<string, unknown>;
 }
 
-interface Location {
-  id: string;
-  code: string;
-  occupied: boolean;
-  material?: string;
-  hazardous: boolean;
-}
+const zoneColors: Record<string, string> = {
+  raw_material: '#1B4F72',
+  finished_goods: '#27AE60',
+  quarantine: '#E67E22',
+  hazardous: '#E74C3C',
+  cold_storage: '#2980B9',
+};
 
 const WarehouseMap: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isAr = i18n.language === 'ar';
+  const [zones, setZones] = useState<Zone[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const zones: Zone[] = [
-    {
-      id: '1', name: 'Zone A - General Chemicals', type: 'general', capacity: 50, used: 35, color: '#1B4F72',
-      locations: [
-        { id: 'a1', code: 'A-1', occupied: true, material: 'Sodium Hydroxide', hazardous: true },
-        { id: 'a2', code: 'A-2', occupied: true, material: 'Calcium Carbonate', hazardous: false },
-        { id: 'a3', code: 'A-3', occupied: false, hazardous: false },
-        { id: 'a4', code: 'A-4', occupied: true, material: 'Sodium Chloride', hazardous: false },
-      ],
-    },
-    {
-      id: '2', name: 'Zone B - Acids', type: 'acids', capacity: 30, used: 22, color: '#E74C3C',
-      locations: [
-        { id: 'b1', code: 'B-1', occupied: true, material: 'Sulfuric Acid', hazardous: true },
-        { id: 'b2', code: 'B-2', occupied: true, material: 'Nitric Acid', hazardous: true },
-        { id: 'b3', code: 'B-3', occupied: true, material: 'Hydrochloric Acid', hazardous: true },
-        { id: 'b4', code: 'B-4', occupied: false, hazardous: true },
-      ],
-    },
-    {
-      id: '3', name: 'Zone C - Solvents', type: 'solvents', capacity: 40, used: 28, color: '#F39C12',
-      locations: [
-        { id: 'c1', code: 'C-1', occupied: true, material: 'Ethanol', hazardous: true },
-        { id: 'c2', code: 'C-2', occupied: true, material: 'Acetone', hazardous: true },
-        { id: 'c3', code: 'C-3', occupied: false, hazardous: true },
-        { id: 'c4', code: 'C-4', occupied: false, hazardous: true },
-      ],
-    },
-    {
-      id: '4', name: 'Zone D - Cold Storage', type: 'cold', capacity: 20, used: 8, color: '#3498DB',
-      locations: [
-        { id: 'd1', code: 'D-1', occupied: true, material: 'Reagent Grade Enzymes', hazardous: false },
-        { id: 'd2', code: 'D-2', occupied: true, material: 'Biological Indicators', hazardous: false },
-        { id: 'd3', code: 'D-3', occupied: false, hazardous: false },
-        { id: 'd4', code: 'D-4', occupied: false, hazardous: false },
-      ],
-    },
-  ];
+  useEffect(() => {
+    api.get('/warehouse/zones')
+      .then((res) => setZones(Array.isArray(res.data) ? res.data : res.data.data || []))
+      .catch(() => setZones([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div style={{ textAlign: 'center', padding: 80 }}><Spin size="large" /></div>;
 
   return (
     <div>
-      <Title level={4}>{t('nav.warehouse')}</Title>
-      <Space style={{ marginBottom: 16 }}>
-        <Badge color="#27AE60" text="Occupied" />
-        <Badge color="#d9d9d9" text="Empty" />
-        <Badge color="#E74C3C" text="Hazardous" />
-      </Space>
-
+      <Title level={4}>{t('warehouse.title')}</Title>
       <Row gutter={[16, 16]}>
         {zones.map((zone) => (
-          <Col xs={24} lg={12} key={zone.id}>
+          <Col xs={24} sm={12} lg={8} xl={6} key={zone.id}>
             <Card
               title={
                 <Space>
-                  <div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: zone.color }} />
-                  <span>{zone.name}</span>
-                  <Tag>{Math.round((zone.used / zone.capacity) * 100)}% used</Tag>
+                  <div style={{ width: 12, height: 12, borderRadius: 2, background: zoneColors[zone.zoneType] || '#666' }} />
+                  <Text strong>{zone.code}</Text>
                 </Space>
               }
+              size="small"
+              style={{ borderTop: `3px solid ${zoneColors[zone.zoneType] || '#666'}` }}
             >
-              <Row gutter={[8, 8]}>
-                {zone.locations.map((loc) => (
-                  <Col span={6} key={loc.id}>
-                    <Tooltip title={loc.material || 'Empty'}>
-                      <div
-                        style={{
-                          padding: 12,
-                          borderRadius: 6,
-                          border: `2px solid ${loc.hazardous ? '#E74C3C' : '#d9d9d9'}`,
-                          backgroundColor: loc.occupied ? '#e6f7e6' : '#fafafa',
-                          textAlign: 'center',
-                          cursor: 'pointer',
-                          minHeight: 70,
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <Text strong style={{ fontSize: 12 }}>{loc.code}</Text>
-                        {loc.material && (
-                          <Text style={{ fontSize: 10, color: '#666' }} ellipsis>
-                            {loc.material}
-                          </Text>
-                        )}
-                      </div>
-                    </Tooltip>
-                  </Col>
-                ))}
+              <Text>{isAr ? zone.nameAr || zone.nameEn : zone.nameEn}</Text>
+              <div style={{ marginTop: 8 }}>
+                <Tag>{zone.zoneType}</Tag>
+              </div>
+              <Row gutter={16} style={{ marginTop: 12 }}>
+                <Col span={12}>
+                  <Statistic title="Max Temp" value={zone.maxTemperature} suffix="°C" valueStyle={{ fontSize: 14 }} />
+                </Col>
+                <Col span={12}>
+                  <Statistic title="Max Humidity" value={zone.maxHumidity} suffix="%" valueStyle={{ fontSize: 14 }} />
+                </Col>
               </Row>
             </Card>
           </Col>

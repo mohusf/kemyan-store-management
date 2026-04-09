@@ -1,8 +1,17 @@
 import React, { Suspense } from 'react';
-import { createHashRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { Spin } from 'antd';
+import { useAuthStore } from '../store/authStore';
 import MainLayout from '../layouts/MainLayout';
 import AuthLayout from '../layouts/AuthLayout';
+
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  return <>{children}</>;
+};
 
 const LazyFallback = (
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
@@ -38,11 +47,14 @@ const NCRList = () => lazy(() => import('../pages/quality/NCRList'));
 const SDSLibrary = () => lazy(() => import('../pages/compliance/SDSLibrary'));
 const WasteTracking = () => lazy(() => import('../pages/compliance/WasteTracking'));
 const DocumentList = () => lazy(() => import('../pages/documents/DocumentList'));
+const DocumentHierarchy = () => lazy(() => import('../pages/documents/DocumentHierarchy'));
+const DocumentDetail = () => lazy(() => import('../pages/documents/DocumentDetail'));
+const EquipmentRegister = () => lazy(() => import('../pages/equipment/EquipmentRegister'));
 const ReportDashboard = () => lazy(() => import('../pages/reports/ReportDashboard'));
 const AuditLog = () => lazy(() => import('../pages/audit/AuditLog'));
 const Settings = () => lazy(() => import('../pages/settings/Settings'));
 
-export const router = createHashRouter([
+export const router = createBrowserRouter([
   {
     path: '/login',
     element: <AuthLayout />,
@@ -52,7 +64,7 @@ export const router = createHashRouter([
   },
   {
     path: '/',
-    element: <MainLayout />,
+    element: <ProtectedRoute><MainLayout /></ProtectedRoute>,
     children: [
       { index: true, element: <Navigate to="/dashboard" replace /> },
       { path: 'dashboard', element: <Dashboard /> },
@@ -75,7 +87,11 @@ export const router = createHashRouter([
       { path: 'quality/ncr', element: <NCRList /> },
       { path: 'compliance/sds', element: <SDSLibrary /> },
       { path: 'compliance/waste', element: <WasteTracking /> },
-      { path: 'documents', element: <DocumentList /> },
+      { path: 'documents', element: <DocumentHierarchy /> },
+      { path: 'documents/hierarchy', element: <DocumentHierarchy /> },
+      { path: 'documents/list', element: <DocumentList /> },
+      { path: 'documents/:id', element: <DocumentDetail /> },
+      { path: 'equipment', element: <EquipmentRegister /> },
       { path: 'reports', element: <ReportDashboard /> },
       { path: 'audit-log', element: <AuditLog /> },
       { path: 'settings', element: <Settings /> },

@@ -9,6 +9,7 @@ import { kemyanTheme } from './config/theme';
 import { queryClient } from './config/queryClient';
 import { router } from './router';
 import { useAppStore } from './store/appStore';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
 
 const App: React.FC = () => {
   const { i18n } = useTranslation();
@@ -24,6 +25,7 @@ const App: React.FC = () => {
         locale={locale}
       >
         <AntApp>
+          <ErrorBoundary>
           <Suspense
             fallback={
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -33,6 +35,7 @@ const App: React.FC = () => {
           >
             <RouterProvider router={router} />
           </Suspense>
+          </ErrorBoundary>
         </AntApp>
       </ConfigProvider>
     </QueryClientProvider>

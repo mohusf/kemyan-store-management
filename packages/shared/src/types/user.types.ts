@@ -23,12 +23,11 @@ export enum UserRole {
 
 export interface User {
   id: string;
-  employeeId: string;
-  firstName: string;
-  lastName: string;
   email: string;
-  role: UserRole;
-  department: string;
+  nameEn: string;
+  nameAr?: string;
+  roleId?: string;
+  department?: string;
   isActive: boolean;
   /** ISO 8601 date-time of last successful login */
   lastLoginAt?: string;

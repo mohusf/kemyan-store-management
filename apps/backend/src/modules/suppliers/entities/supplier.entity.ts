@@ -41,17 +41,17 @@ export class Supplier {
   gmpPlusCertNumber: string;
 
   @Column({ type: 'date', name: 'gmp_plus_cert_expiry', nullable: true })
-  gmpPlusCertExpiry: Date;
+  gmpPlusCertExpiry: string | Date;
 
   @Column({ type: 'varchar', length: 100, name: 'famiqs_cert_number', nullable: true })
   famiqsCertNumber: string;
 
   @Column({ type: 'date', name: 'famiqs_cert_expiry', nullable: true })
-  famiqsCertExpiry: Date;
+  famiqsCertExpiry: string | Date;
 
   @Column({
-    type: 'enum',
-    enum: QualificationStatus,
+    type: 'varchar',
+    length: 30,
     default: QualificationStatus.PENDING,
     name: 'qualification_status',
   })
@@ -59,6 +59,9 @@ export class Supplier {
 
   @Column({ type: 'decimal', precision: 5, scale: 2, name: 'performance_score', default: 0 })
   performanceScore: number;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  country: string;
 
   @Column({ type: 'boolean', name: 'is_active', default: true })
   isActive: boolean;

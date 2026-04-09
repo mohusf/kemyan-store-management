@@ -23,20 +23,11 @@ export enum GHSPictogram {
   GHS09 = 'GHS09',
 }
 
-export enum SignalWord {
-  /** Indicates more severe hazard categories */
-  DANGER = 'DANGER',
-  /** Indicates less severe hazard categories */
-  WARNING = 'WARNING',
-}
-
 export enum WasteType {
-  HAZARDOUS_CHEMICAL = 'HAZARDOUS_CHEMICAL',
-  NON_HAZARDOUS = 'NON_HAZARDOUS',
-  EXPIRED_MATERIAL = 'EXPIRED_MATERIAL',
-  CONTAMINATED_PACKAGING = 'CONTAMINATED_PACKAGING',
-  LABORATORY_WASTE = 'LABORATORY_WASTE',
-  ELECTRONIC_WASTE = 'ELECTRONIC_WASTE',
+  HAZARDOUS = 'hazardous',
+  NON_HAZARDOUS = 'non_hazardous',
+  RECYCLABLE = 'recyclable',
+  CHEMICAL = 'chemical',
 }
 
 /**
@@ -44,15 +35,11 @@ export enum WasteType {
  * hazardous materials at Kemyan.
  */
 export enum PPEType {
-  SAFETY_GOGGLES = 'SAFETY_GOGGLES',
-  FACE_SHIELD = 'FACE_SHIELD',
-  CHEMICAL_GLOVES = 'CHEMICAL_GLOVES',
-  HEAT_RESISTANT_GLOVES = 'HEAT_RESISTANT_GLOVES',
-  SAFETY_BOOTS = 'SAFETY_BOOTS',
-  CHEMICAL_APRON = 'CHEMICAL_APRON',
-  FULL_BODY_SUIT = 'FULL_BODY_SUIT',
-  RESPIRATOR = 'RESPIRATOR',
-  SCBA = 'SCBA',
-  HARD_HAT = 'HARD_HAT',
-  HEARING_PROTECTION = 'HEARING_PROTECTION',
+  GLOVES = 'gloves',
+  GOGGLES = 'goggles',
+  FACE_SHIELD = 'face_shield',
+  RESPIRATOR = 'respirator',
+  CHEMICAL_SUIT = 'chemical_suit',
+  SAFETY_BOOTS = 'safety_boots',
+  HARD_HAT = 'hard_hat',
 }

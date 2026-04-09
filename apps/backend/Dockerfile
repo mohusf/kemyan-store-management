@@ -29,6 +29,9 @@ FROM node:20-alpine AS production
 
 WORKDIR /app
 
+# Install PostgreSQL client for migration runner
+RUN apk add --no-cache postgresql16-client
+
 # Create non-root user
 RUN addgroup -S kemyan && adduser -S kemyan -G kemyan
 
@@ -37,6 +40,14 @@ COPY --from=build /app/apps/backend/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/apps/backend/package.json ./
 
+# Copy migration and seed SQL files
+COPY apps/backend/src/database/migrations/ ./migrations/
+COPY apps/backend/src/database/seeds/ ./seeds/
+
+# Copy entrypoint script
+COPY apps/backend/docker-entrypoint.sh ./docker-entrypoint.sh
+RUN chmod +x ./docker-entrypoint.sh
+
 # Set ownership
 RUN chown -R kemyan:kemyan /app
 
@@ -44,4 +55,4 @@ USER kemyan
 
 EXPOSE 3000
 
-CMD ["node", "dist/main.js"]
+ENTRYPOINT ["./docker-entrypoint.sh"]

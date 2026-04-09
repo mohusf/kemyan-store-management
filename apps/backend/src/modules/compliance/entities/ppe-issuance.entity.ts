@@ -21,6 +21,9 @@ export class PpeIssuance {
   @Column({ type: 'timestamp', name: 'returned_at', nullable: true })
   returnedAt: Date;
 
-  @Column({ type: 'varchar', length: 50, nullable: true })
+  @Column({ type: 'varchar', length: 50, name: 'condition_on_return', nullable: true })
   condition: string;
+
+  @Column({ type: 'text', nullable: true })
+  notes: string;
 }

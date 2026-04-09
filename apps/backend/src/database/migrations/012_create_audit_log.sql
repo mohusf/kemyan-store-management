@@ -61,7 +61,8 @@ BEGIN
     SELECT hash_chain INTO prev_hash
     FROM audit_logs
     ORDER BY id DESC
-    LIMIT 1;
+    LIMIT 1
+    FOR UPDATE;
 
     -- Build a string representation of the current row's key fields
     row_data := COALESCE(NEW.entity_type, '') || '|' ||

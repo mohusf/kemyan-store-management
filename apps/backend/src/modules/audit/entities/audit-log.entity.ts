@@ -28,7 +28,7 @@ export class AuditLog {
   @Column({ type: 'uuid', name: 'performed_by' })
   performedBy: string;
 
-  @Column({ type: 'varchar', length: 45, name: 'ip_address', nullable: true })
+  @Column({ type: 'inet', name: 'ip_address', nullable: true })
   ipAddress: string;
 
   @Column({ type: 'varchar', length: 500, name: 'user_agent', nullable: true })

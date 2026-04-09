@@ -6,12 +6,10 @@ import {
 } from 'typeorm';
 
 export enum TransactionType {
-  RECEIPT = 'receipt',
+  RECEIVE = 'receive',
   ISSUE = 'issue',
-  TRANSFER_IN = 'transfer_in',
-  TRANSFER_OUT = 'transfer_out',
-  ADJUSTMENT_PLUS = 'adjustment_plus',
-  ADJUSTMENT_MINUS = 'adjustment_minus',
+  TRANSFER = 'transfer',
+  ADJUST = 'adjust',
   RETURN = 'return',
   WRITE_OFF = 'write_off',
 }
@@ -21,23 +19,23 @@ export class InventoryTransaction {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
-  @Column({ type: 'uuid', name: 'batch_id' })
+  @Column({ type: 'uuid', name: 'batch_id', nullable: true })
   batchId: string;
 
   @Column({ type: 'uuid', name: 'material_id' })
   materialId: string;
 
-  @Column({ type: 'uuid', name: 'location_id' })
+  @Column({ type: 'uuid', name: 'location_id', nullable: true })
   locationId: string;
 
   @Column({
-    type: 'enum',
-    enum: TransactionType,
+    type: 'varchar',
+    length: 30,
     name: 'transaction_type',
   })
   transactionType: TransactionType;
 
-  @Column({ type: 'decimal', precision: 14, scale: 4 })
+  @Column({ type: 'decimal', precision: 12, scale: 3 })
   quantity: number;
 
   @Column({ type: 'varchar', length: 100, name: 'reference_type' })
@@ -52,7 +50,7 @@ export class InventoryTransaction {
   @Column({ type: 'text', nullable: true })
   reason: string;
 
-  @Column({ type: 'decimal', precision: 14, scale: 4, name: 'running_balance' })
+  @Column({ type: 'decimal', precision: 12, scale: 3, name: 'running_balance' })
   runningBalance: number;
 
   @CreateDateColumn({ name: 'created_at' })

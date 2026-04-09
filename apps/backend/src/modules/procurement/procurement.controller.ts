@@ -13,6 +13,8 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@ne
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { ProcurementService } from './procurement.service';
+import { CreatePurchaseOrderDto } from './dto/create-purchase-order.dto';
+import { CreateGrnDto } from './dto/create-grn.dto';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { CheckPermissions } from '../../common/decorators/roles.decorator';
 import { Action } from '../auth/casl/casl-ability.factory';
@@ -28,8 +30,9 @@ export class ProcurementController {
   @CheckPermissions({ action: Action.Create, subject: 'PurchaseOrder' })
   @ApiOperation({ summary: 'Create a purchase order' })
   @ApiResponse({ status: 201, description: 'Purchase order created' })
-  async createPurchaseOrder(@Body() body: { po: any; lines: any[] }) {
-    return this.procurementService.createPurchaseOrder(body.po, body.lines);
+  async createPurchaseOrder(@Body() body: CreatePurchaseOrderDto) {
+    const { lines, ...po } = body;
+    return this.procurementService.createPurchaseOrder(po, lines);
   }
 
   @Get('purchase-orders')
@@ -62,7 +65,7 @@ export class ProcurementController {
   @Post('grn')
   @CheckPermissions({ action: Action.Create, subject: 'PurchaseOrder' })
   @ApiOperation({ summary: 'Create a goods received note' })
-  async createGrn(@Body() body: any) {
+  async createGrn(@Body() body: CreateGrnDto) {
     return this.procurementService.createGoodsReceivedNote(body);
   }
 

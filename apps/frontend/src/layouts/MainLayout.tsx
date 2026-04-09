@@ -19,6 +19,7 @@ import {
   DatabaseOutlined,
   WarningOutlined,
   ContainerOutlined,
+  ToolOutlined,
 } from '@ant-design/icons';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -106,9 +107,18 @@ const MainLayout: React.FC = () => {
       ],
     },
     {
-      key: '/documents',
+      key: 'documents-group',
       icon: <ContainerOutlined />,
       label: t('nav.documents'),
+      children: [
+        { key: '/documents/hierarchy', label: t('nav.imsHierarchy', 'IMS Hierarchy') },
+        { key: '/documents/list', label: t('nav.documentList', 'Document List') },
+      ],
+    },
+    {
+      key: '/equipment',
+      icon: <ToolOutlined />,
+      label: t('nav.equipment', 'Equipment'),
     },
     {
       key: '/reports',
@@ -131,7 +141,7 @@ const MainLayout: React.FC = () => {
     {
       key: 'profile',
       icon: <UserOutlined />,
-      label: user?.name || 'User',
+      label: user?.name || t('common.user'),
     },
     { type: 'divider' },
     {
@@ -233,7 +243,7 @@ const MainLayout: React.FC = () => {
               <Space style={{ cursor: 'pointer' }}>
                 <Avatar icon={<UserOutlined />} style={{ backgroundColor: '#1B4F72' }} />
                 {!sidebarCollapsed && (
-                  <Text>{user?.name || 'Admin'}</Text>
+                  <Text>{user?.name || t('common.admin')}</Text>
                 )}
               </Space>
             </Dropdown>

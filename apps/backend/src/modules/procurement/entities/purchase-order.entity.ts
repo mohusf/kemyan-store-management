@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
 import { PurchaseOrderLine } from './purchase-order-line.entity';
@@ -30,16 +31,16 @@ export class PurchaseOrder {
   supplierId: string;
 
   @Column({
-    type: 'enum',
-    enum: PurchaseOrderStatus,
+    type: 'varchar',
+    length: 30,
     default: PurchaseOrderStatus.DRAFT,
   })
   status: PurchaseOrderStatus;
 
-  @Column({ type: 'decimal', precision: 14, scale: 2, name: 'total_amount', default: 0 })
+  @Column({ type: 'decimal', precision: 15, scale: 2, name: 'total_amount', default: 0 })
   totalAmount: number;
 
-  @Column({ type: 'decimal', precision: 14, scale: 2, name: 'vat_amount', default: 0 })
+  @Column({ type: 'decimal', precision: 15, scale: 2, name: 'vat_amount', default: 0 })
   vatAmount: number;
 
   @Column({ type: 'varchar', length: 3, default: 'SAR' })
@@ -57,6 +58,12 @@ export class PurchaseOrder {
   @OneToMany(() => PurchaseOrderLine, (line) => line.purchaseOrder)
   lines: PurchaseOrderLine[];
 
+  @Column({ type: 'text', nullable: true })
+  notes: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

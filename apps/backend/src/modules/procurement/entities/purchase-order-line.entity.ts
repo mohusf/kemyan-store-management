@@ -22,12 +22,18 @@ export class PurchaseOrderLine {
   @Column({ type: 'uuid', name: 'material_id' })
   materialId: string;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2 })
+  @Column({ type: 'decimal', precision: 12, scale: 3 })
   quantity: number;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2, name: 'unit_price' })
+  @Column({ type: 'decimal', precision: 15, scale: 4, name: 'unit_price' })
   unitPrice: number;
 
-  @Column({ type: 'decimal', precision: 14, scale: 2, name: 'total_price' })
+  @Column({ type: 'decimal', precision: 15, scale: 2, name: 'total_price' })
   totalPrice: number;
+
+  @Column({ type: 'decimal', precision: 12, scale: 3, name: 'received_quantity', default: 0 })
+  receivedQuantity: number;
+
+  @Column({ type: 'text', nullable: true })
+  notes: string;
 }

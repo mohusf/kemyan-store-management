@@ -2,6 +2,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  CreateDateColumn,
 } from 'typeorm';
 
 export enum InspectionStatus {
@@ -29,10 +30,16 @@ export class GoodsReceivedNote {
   receivedAt: Date;
 
   @Column({
-    type: 'enum',
-    enum: InspectionStatus,
+    type: 'varchar',
+    length: 30,
     default: InspectionStatus.PENDING,
     name: 'inspection_status',
   })
   inspectionStatus: InspectionStatus;
+
+  @Column({ type: 'text', nullable: true })
+  notes: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }

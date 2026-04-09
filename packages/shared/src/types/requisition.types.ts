@@ -1,64 +1,59 @@
 /**
  * Multi-step approval workflow status for material requisitions.
- * The exact path depends on the requisition value and urgency.
+ * Values are lowercase to match the database varchar values.
  */
 export enum RequisitionStatus {
-  DRAFT = 'DRAFT',
-  PENDING_SUPERVISOR = 'PENDING_SUPERVISOR',
-  PENDING_STORE_MANAGER = 'PENDING_STORE_MANAGER',
-  PENDING_PROCUREMENT = 'PENDING_PROCUREMENT',
-  PENDING_PLANT_MANAGER = 'PENDING_PLANT_MANAGER',
-  APPROVED = 'APPROVED',
-  REJECTED = 'REJECTED',
-  CANCELLED = 'CANCELLED',
+  DRAFT = 'draft',
+  PENDING_SUPERVISOR = 'pending_supervisor',
+  PENDING_STORE_MANAGER = 'pending_store_manager',
+  PENDING_PROCUREMENT = 'pending_procurement',
+  PENDING_PLANT_MANAGER = 'pending_plant_manager',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
+  CANCELLED = 'cancelled',
 }
 
 export enum UrgencyLevel {
+  LOW = 'low',
   /** Standard processing within normal SLA */
-  NORMAL = 'NORMAL',
-  /** Expedited processing; shorter SLA applies */
-  URGENT = 'URGENT',
+  NORMAL = 'normal',
+  HIGH = 'high',
   /** Production-critical; requires immediate attention and escalation */
-  EMERGENCY = 'EMERGENCY',
-}
-
-export enum ApprovalDecision {
-  APPROVED = 'APPROVED',
-  REJECTED = 'REJECTED',
-  /** Sent back to the requester for clarification or amendment */
-  RETURNED = 'RETURNED',
-}
-
-export interface RequisitionLineItem {
-  id: string;
-  materialId: string;
-  requestedQuantity: number;
-  issuedQuantity?: number;
-  notes?: string;
-}
-
-export interface ApprovalRecord {
-  id: string;
-  requisitionId: string;
-  approverUserId: string;
-  decision: ApprovalDecision;
-  comments?: string;
-  decidedAt: string;
+  CRITICAL = 'critical',
 }
 
 export interface Requisition {
   id: string;
   requisitionNumber: string;
-  requestedBy: string;
-  department: string;
-  status: RequisitionStatus;
-  urgency: UrgencyLevel;
-  lineItems: RequisitionLineItem[];
-  approvals: ApprovalRecord[];
+  requesterId: string;
+  materialId: string;
+  quantity: number;
+  urgency: string;
   /** Estimated total value in SAR; drives the approval routing */
-  estimatedValueSAR?: number;
+  estimatedValue?: number;
+  status: RequisitionStatus;
+  currentApproverId?: string;
+  department?: string;
   justification?: string;
-  requiredByDate?: string;
+  /** ISO 8601 date by which the material is needed */
+  requiredDate?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+/**
+ * Approval step in the multi-level approval chain.
+ * Maps to the approval_steps table.
+ */
+export interface ApprovalStep {
+  id: string;
+  requisitionId: string;
+  stepOrder: number;
+  approverRole: string;
+  approverId?: string;
+  decision?: string;
+  comments?: string;
+  decidedAt?: string;
+  slaHours: number;
+  escalated: boolean;
 }

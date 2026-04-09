@@ -2,6 +2,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  CreateDateColumn,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
@@ -36,4 +37,10 @@ export class SupplierEvaluation {
 
   @Column({ type: 'uuid', name: 'evaluated_by' })
   evaluatedBy: string;
+
+  @Column({ type: 'text', nullable: true })
+  notes: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }

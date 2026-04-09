@@ -1,56 +1,49 @@
 export enum QualificationStatus {
   /** New supplier, not yet evaluated */
-  PENDING = 'PENDING',
+  PENDING = 'pending',
   /** Passed evaluation and approved for purchasing */
-  QUALIFIED = 'QUALIFIED',
+  QUALIFIED = 'qualified',
   /** Conditionally approved with restrictions or follow-up actions */
-  CONDITIONALLY_APPROVED = 'CONDITIONALLY_APPROVED',
+  CONDITIONAL = 'conditional',
   /** Failed evaluation or disqualified due to performance */
-  DISQUALIFIED = 'DISQUALIFIED',
-  /** Qualification has lapsed and requires renewal */
-  EXPIRED = 'EXPIRED',
+  DISQUALIFIED = 'disqualified',
+}
+
+export interface Supplier {
+  id: string;
+  code: string;
+  nameEn: string;
+  nameAr?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  address?: string;
+  country?: string;
+  /** GMP+ B2/B3 certificate number */
+  gmpPlusCertNumber?: string;
+  /** ISO 8601 date when GMP+ certificate expires */
+  gmpPlusCertExpiry?: string;
+  /** FAMI-QS certificate number */
+  famiqsCertNumber?: string;
+  /** ISO 8601 date when FAMI-QS certificate expires */
+  famiqsCertExpiry?: string;
+  qualificationStatus: QualificationStatus;
+  /** Overall performance score from latest evaluation (0-100) */
+  performanceScore?: number;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface SupplierEvaluation {
   id: string;
   supplierId: string;
+  /** ISO 8601 date of the evaluation */
   evaluationDate: string;
-  /** Overall score out of 100 */
-  overallScore: number;
-  qualityScore: number;
-  deliveryScore: number;
-  priceScore: number;
-  complianceScore: number;
-  evaluatedBy: string;
-  comments?: string;
-  /** Resulting qualification decision */
-  qualificationDecision: QualificationStatus;
-  nextEvaluationDate: string;
-}
-
-export interface Supplier {
-  id: string;
-  supplierCode: string;
-  name: string;
-  nameAr?: string;
-  contactPerson: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  country: string;
-  qualificationStatus: QualificationStatus;
-  /** Whether this supplier holds GMP+ certification */
-  gmpPlusCertified: boolean;
-  gmpPlusCertificateExpiry?: string;
-  /** VAT registration number (required in KSA) */
-  vatNumber?: string;
-  /** Commercial Registration number */
-  crNumber?: string;
-  /** Material categories this supplier is approved to provide */
-  approvedCategories: string[];
-  latestEvaluation?: SupplierEvaluation;
-  isActive: boolean;
+  onTimeDeliveryScore?: number;
+  qualityScore?: number;
+  priceStabilityScore?: number;
+  overallScore?: number;
+  evaluatedBy?: string;
+  notes?: string;
   createdAt: string;
-  updatedAt: string;
 }
