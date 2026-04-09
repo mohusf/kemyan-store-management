@@ -28,7 +28,7 @@ export class RequisitionService {
 
   async findAll(page = 1, limit = 20): Promise<{ data: Requisition[]; total: number }> {
     const [data, total] = await this.requisitionRepository.findAndCount({
-      relations: ['approvalSteps'],
+      relations: ['approvalSteps', 'material'],
       skip: (page - 1) * limit,
       take: limit,
       order: { createdAt: 'DESC' },
@@ -39,7 +39,7 @@ export class RequisitionService {
   async findOne(id: string): Promise<Requisition> {
     const requisition = await this.requisitionRepository.findOne({
       where: { id },
-      relations: ['approvalSteps'],
+      relations: ['approvalSteps', 'material'],
     });
     if (!requisition) {
       throw new NotFoundException(`Requisition with id ${id} not found`);

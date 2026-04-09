@@ -31,6 +31,15 @@ export class ComplianceController {
     return this.complianceService.createSdsRecord(body);
   }
 
+  @Get('sds')
+  @CheckPermissions({ action: Action.Read, subject: 'Material' })
+  @ApiOperation({ summary: 'List all SDS records' })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  async findAllSds(@Query('page') page?: number, @Query('limit') limit?: number) {
+    return this.complianceService.findAllSds(page, limit);
+  }
+
   @Get('sds/material/:materialId')
   @CheckPermissions({ action: Action.Read, subject: 'Material' })
   @ApiOperation({ summary: 'Get SDS records for a material' })

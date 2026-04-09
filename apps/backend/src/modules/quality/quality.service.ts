@@ -21,6 +21,15 @@ export class QualityService {
     return this.inspectionRepository.save(inspection);
   }
 
+  async findAllInspections(page = 1, limit = 20): Promise<{ data: Inspection[]; total: number }> {
+    const [data, total] = await this.inspectionRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { inspectedAt: 'DESC' },
+    });
+    return { data, total };
+  }
+
   async findInspection(id: string): Promise<Inspection> {
     const inspection = await this.inspectionRepository.findOne({ where: { id } });
     if (!inspection) {

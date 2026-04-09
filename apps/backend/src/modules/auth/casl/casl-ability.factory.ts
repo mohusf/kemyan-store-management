@@ -25,6 +25,7 @@ export type Subjects =
   | 'Supplier'
   | 'Inspection'
   | 'Document'
+  | 'Equipment'
   | 'Report'
   | 'User'
   | 'AuditLog'

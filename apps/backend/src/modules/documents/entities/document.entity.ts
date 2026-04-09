@@ -4,6 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
 export enum DocumentStatus {
@@ -52,7 +55,7 @@ export class Document {
   })
   status: string;
 
-  @Column({ type: 'varchar', length: 1000, name: 'file_path' })
+  @Column({ type: 'text', name: 'file_path', nullable: true })
   filePath: string;
 
   @Column({ type: 'uuid', name: 'uploaded_by' })
@@ -69,6 +72,31 @@ export class Document {
 
   @Column({ type: 'varchar', length: 100, name: 'mime_type', nullable: true })
   mimeType: string;
+
+  @Column({ type: 'uuid', name: 'parent_id', nullable: true })
+  parentId: string;
+
+  @Column({ type: 'varchar', length: 5, name: 'document_level', nullable: true })
+  documentLevel: string;
+
+  @Column({ type: 'varchar', length: 5, name: 'type_code', nullable: true })
+  typeCode: string;
+
+  @Column({ type: 'int', nullable: true })
+  chapter: number;
+
+  @Column({ type: 'varchar', length: 10, nullable: true })
+  domain: string;
+
+  @Column({ type: 'int', name: 'sort_order', default: 0 })
+  sortOrder: number;
+
+  @ManyToOne(() => Document, (doc) => doc.children, { nullable: true })
+  @JoinColumn({ name: 'parent_id' })
+  parent: Document;
+
+  @OneToMany(() => Document, (doc) => doc.parent)
+  children: Document[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

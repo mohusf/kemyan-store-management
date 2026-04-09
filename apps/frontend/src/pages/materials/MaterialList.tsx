@@ -1,48 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Card, Input, Button, Space, Tag, Typography, Select } from 'antd';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import api from '../../services/api';
 import type { ColumnsType } from 'antd/es/table';
 
 const { Title } = Typography;
 
 interface Material {
   id: string;
-  code: string;
-  name: string;
+  materialCode: string;
+  nameEn: string;
+  nameAr?: string;
   casNumber: string;
   category: string;
-  hazardClass: string;
-  currentStock: number;
-  unit: string;
-  minimumStock: number;
+  ghsClassification?: string;
+  unitOfMeasure: string;
+  reorderPoint: number;
 }
 
 const MaterialList: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const isAr = i18n.language === 'ar';
+  const [data, setData] = useState<Material[]>([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string | undefined>();
 
+  useEffect(() => {
+    setLoading(true);
+    api.get('/materials', { params: { page, limit: 20 } })
+      .then((res) => {
+        setData(res.data.data);
+        setTotal(res.data.total);
+      })
+      .catch(() => { setData([]); setTotal(0); })
+      .finally(() => setLoading(false));
+  }, [page]);
+
   const columns: ColumnsType<Material> = [
-    {
-      title: t('common.code'),
-      dataIndex: 'code',
-      key: 'code',
-      sorter: true,
-    },
+    { title: t('common.code'), dataIndex: 'materialCode', key: 'materialCode', sorter: true },
     {
       title: t('common.name'),
-      dataIndex: 'name',
       key: 'name',
       sorter: true,
+      render: (_: unknown, record: Material) => isAr ? record.nameAr || record.nameEn : record.nameEn,
     },
-    {
-      title: t('materials.casNumber'),
-      dataIndex: 'casNumber',
-      key: 'casNumber',
-    },
+    { title: t('materials.casNumber'), dataIndex: 'casNumber', key: 'casNumber' },
     {
       title: t('materials.category'),
       dataIndex: 'category',
@@ -51,22 +59,16 @@ const MaterialList: React.FC = () => {
     },
     {
       title: t('materials.hazardClass'),
-      dataIndex: 'hazardClass',
-      key: 'hazardClass',
+      dataIndex: 'ghsClassification',
+      key: 'ghsClassification',
       render: (hazard: string) => (
         <Tag color={hazard ? 'red' : 'default'}>{hazard || 'N/A'}</Tag>
       ),
     },
     {
-      title: t('materials.currentStock'),
-      dataIndex: 'currentStock',
-      key: 'currentStock',
-      sorter: true,
-      render: (stock: number, record: Material) => (
-        <span style={{ color: stock <= record.minimumStock ? '#E74C3C' : undefined }}>
-          {stock} {record.unit}
-        </span>
-      ),
+      title: t('common.unit'),
+      dataIndex: 'unitOfMeasure',
+      key: 'unitOfMeasure',
     },
     {
       title: t('common.actions'),
@@ -77,12 +79,6 @@ const MaterialList: React.FC = () => {
         </Button>
       ),
     },
-  ];
-
-  const mockData: Material[] = [
-    { id: '1', code: 'MAT-001', name: 'Sodium Hydroxide', casNumber: '1310-73-2', category: 'Base', hazardClass: 'Corrosive', currentStock: 500, unit: 'kg', minimumStock: 100 },
-    { id: '2', code: 'MAT-002', name: 'Hydrochloric Acid', casNumber: '7647-01-0', category: 'Acid', hazardClass: 'Corrosive', currentStock: 80, unit: 'L', minimumStock: 100 },
-    { id: '3', code: 'MAT-003', name: 'Ethanol', casNumber: '64-17-5', category: 'Solvent', hazardClass: 'Flammable', currentStock: 200, unit: 'L', minimumStock: 50 },
   ];
 
   return (
@@ -121,9 +117,16 @@ const MaterialList: React.FC = () => {
 
         <Table
           columns={columns}
-          dataSource={mockData}
+          dataSource={data}
           rowKey="id"
-          pagination={{ pageSize: 10, showSizeChanger: true, showTotal: (total) => `${t('common.total')}: ${total}` }}
+          loading={loading}
+          pagination={{
+            current: page,
+            pageSize: 20,
+            total,
+            onChange: setPage,
+            showTotal: (total) => `${t('common.total')}: ${total}`,
+          }}
         />
       </Card>
     </div>

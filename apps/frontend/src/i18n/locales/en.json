@@ -27,6 +27,9 @@
     "sds": "Safety Data Sheets",
     "wasteTracking": "Waste Tracking",
     "documents": "Documents",
+    "imsHierarchy": "IMS Hierarchy",
+    "documentList": "Document List",
+    "equipment": "Equipment",
     "reports": "Reports",
     "auditLog": "Audit Log",
     "settings": "Settings"
@@ -315,6 +318,63 @@
     "labB": "Lab B",
     "production": "Production",
     "qcLab": "QC Lab"
+  },
+  "ims": {
+    "title": "IMS Document Hierarchy",
+    "documentTree": "Document Tree",
+    "documentDetail": "Document Detail",
+    "selectDocument": "Select a document from the tree",
+    "childDocuments": "Child Documents",
+    "typeCode": "Type Code",
+    "level": "Level",
+    "chapter": "Chapter",
+    "domain": "Domain",
+    "domains": {
+      "IMS": "Integrated Management System",
+      "GMP": "Good Manufacturing Practice",
+      "QLY": "Quality",
+      "ENV": "Environment",
+      "OHS": "Occupational Health & Safety"
+    },
+    "levels": {
+      "L1": "Process Specification",
+      "L2": "Procedure",
+      "L3": "Work Instruction",
+      "L4": "Form / Record"
+    },
+    "typeCodes": {
+      "PS": "Process Specification",
+      "PR": "Procedure",
+      "WI": "Work Instruction",
+      "FO": "Form",
+      "LI": "List / Register",
+      "MA": "Manual"
+    }
+  },
+  "equipment": {
+    "title": "Equipment Register",
+    "tagNumber": "Tag Number",
+    "type": "Type",
+    "plantUnit": "Plant Unit",
+    "criticality": "Criticality",
+    "pmStrategy": "PM Strategy",
+    "associatedPmWis": "Associated PM WIs",
+    "serialNumber": "Serial Number",
+    "manufacturer": "Manufacturer",
+    "model": "Model",
+    "specifications": "Specifications",
+    "criticalityClasses": {
+      "A": "A — Critical",
+      "B": "B — Important",
+      "C": "C — Non-critical"
+    },
+    "pmStrategies": {
+      "TBM": "Time-Based Maintenance",
+      "CBM": "Condition-Based Maintenance",
+      "TBM_CBM": "TBM/CBM Combined",
+      "Predictive": "Predictive Maintenance",
+      "RTF": "Run to Failure"
+    }
   },
   "errors": {
     "loginFailed": "Login failed. Please check your credentials.",

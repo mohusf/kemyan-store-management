@@ -14,6 +14,7 @@ import { SuppliersModule } from './modules/suppliers/suppliers.module';
 import { QualityModule } from './modules/quality/quality.module';
 import { ComplianceModule } from './modules/compliance/compliance.module';
 import { DocumentsModule } from './modules/documents/documents.module';
+import { EquipmentModule } from './modules/equipment/equipment.module';
 import { ReportingModule } from './modules/reporting/reporting.module';
 import { AuditModule } from './modules/audit/audit.module';
 
@@ -48,6 +49,7 @@ import { AuditModule } from './modules/audit/audit.module';
     QualityModule,
     ComplianceModule,
     DocumentsModule,
+    EquipmentModule,
     ReportingModule,
     AuditModule,
   ],

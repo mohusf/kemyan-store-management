@@ -205,6 +205,24 @@ export class InventoryService {
     });
   }
 
+  async findAllBatches(page = 1, limit = 20): Promise<{ data: Batch[]; total: number }> {
+    const [data, total] = await this.batchRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+    return { data, total };
+  }
+
+  async findAllTransactions(page = 1, limit = 20): Promise<{ data: InventoryTransaction[]; total: number }> {
+    const [data, total] = await this.transactionRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+    return { data, total };
+  }
+
   async getRunningBalance(materialId: string, locationId: string): Promise<number> {
     return this.calculateRunningBalance(materialId, locationId);
   }

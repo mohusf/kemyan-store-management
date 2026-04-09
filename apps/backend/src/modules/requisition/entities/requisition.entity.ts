@@ -9,6 +9,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { ApprovalStep } from './approval-step.entity';
+import { Material } from '../../materials/entities/material.entity';
 
 export enum RequisitionStatus {
   DRAFT = 'draft',
@@ -41,6 +42,10 @@ export class Requisition {
 
   @Column({ type: 'uuid', name: 'material_id' })
   materialId: string;
+
+  @ManyToOne(() => Material)
+  @JoinColumn({ name: 'material_id' })
+  material: Material;
 
   @Column({ type: 'decimal', precision: 12, scale: 3 })
   quantity: number;

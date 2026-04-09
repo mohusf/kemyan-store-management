@@ -19,6 +19,7 @@ import {
   DatabaseOutlined,
   WarningOutlined,
   ContainerOutlined,
+  ToolOutlined,
 } from '@ant-design/icons';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -106,9 +107,18 @@ const MainLayout: React.FC = () => {
       ],
     },
     {
-      key: '/documents',
+      key: 'documents-group',
       icon: <ContainerOutlined />,
       label: t('nav.documents'),
+      children: [
+        { key: '/documents/hierarchy', label: t('nav.imsHierarchy', 'IMS Hierarchy') },
+        { key: '/documents/list', label: t('nav.documentList', 'Document List') },
+      ],
+    },
+    {
+      key: '/equipment',
+      icon: <ToolOutlined />,
+      label: t('nav.equipment', 'Equipment'),
     },
     {
       key: '/reports',

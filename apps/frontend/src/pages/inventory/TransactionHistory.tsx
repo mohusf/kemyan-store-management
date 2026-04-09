@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Card, Tag, Typography, Input, DatePicker, Space, Select } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import api from '../../services/api';
 import type { ColumnsType } from 'antd/es/table';
 
 const { Title } = Typography;
@@ -9,59 +10,61 @@ const { RangePicker } = DatePicker;
 
 interface Transaction {
   id: string;
-  date: string;
-  materialCode: string;
-  materialName: string;
-  type: 'received' | 'issued' | 'adjusted' | 'returned';
+  batchId: string;
+  materialId: string;
+  locationId: string;
+  transactionType: string;
   quantity: number;
-  unit: string;
-  batchNumber: string;
-  reference: string;
+  referenceType: string;
+  referenceId: string;
   performedBy: string;
+  reason: string;
+  runningBalance: number;
+  createdAt: string;
 }
 
 const typeColors: Record<string, string> = {
-  received: 'green',
-  issued: 'blue',
-  adjusted: 'orange',
-  returned: 'purple',
+  receive: 'green',
+  issue: 'blue',
+  adjust: 'orange',
+  transfer: 'purple',
 };
 
 const TransactionHistory: React.FC = () => {
   const { t } = useTranslation();
+  const [data, setData] = useState<Transaction[]>([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setLoading(true);
+    api.get('/inventory/transactions', { params: { page, limit: 20 } })
+      .then((res) => { setData(res.data.data || []); setTotal(res.data.total || 0); })
+      .catch(() => { setData([]); setTotal(0); })
+      .finally(() => setLoading(false));
+  }, [page]);
 
   const columns: ColumnsType<Transaction> = [
-    { title: t('common.date'), dataIndex: 'date', key: 'date', sorter: true },
-    { title: t('common.code'), dataIndex: 'materialCode', key: 'materialCode' },
-    { title: t('common.name'), dataIndex: 'materialName', key: 'materialName' },
+    { title: t('common.date'), dataIndex: 'createdAt', key: 'createdAt', render: (v: string) => v ? new Date(v).toLocaleDateString() : '—' },
     {
       title: t('inventory.transactionType'),
-      dataIndex: 'type',
-      key: 'type',
-      render: (type: string) => (
-        <Tag color={typeColors[type]}>{t(`inventory.${type}`)}</Tag>
-      ),
+      dataIndex: 'transactionType',
+      key: 'transactionType',
+      render: (type: string) => <Tag color={typeColors[type] || 'default'}>{type}</Tag>,
     },
     {
       title: t('common.quantity'),
       dataIndex: 'quantity',
       key: 'quantity',
-      render: (qty: number, record: Transaction) => (
+      render: (qty: number) => (
         <span style={{ color: qty > 0 ? '#27AE60' : '#E74C3C' }}>
-          {qty > 0 ? '+' : ''}{qty} {record.unit}
+          {qty > 0 ? '+' : ''}{qty}
         </span>
       ),
     },
-    { title: t('inventory.batchNumber'), dataIndex: 'batchNumber', key: 'batchNumber' },
-    { title: t('common.reference'), dataIndex: 'reference', key: 'reference' },
-    { title: t('common.performedBy'), dataIndex: 'performedBy', key: 'performedBy' },
-  ];
-
-  const mockData: Transaction[] = [
-    { id: '1', date: '2026-03-28', materialCode: 'MAT-001', materialName: 'Sodium Hydroxide', type: 'received', quantity: 200, unit: 'kg', batchNumber: 'B-2026-0312', reference: 'GRN-0045', performedBy: 'Ahmed Hassan' },
-    { id: '2', date: '2026-03-27', materialCode: 'MAT-003', materialName: 'Ethanol', type: 'issued', quantity: -50, unit: 'L', batchNumber: 'B-2026-0298', reference: 'REQ-0042', performedBy: 'Sara Ali' },
-    { id: '3', date: '2026-03-26', materialCode: 'MAT-002', materialName: 'Hydrochloric Acid', type: 'adjusted', quantity: -5, unit: 'L', batchNumber: 'B-2026-0290', reference: 'ADJ-0015', performedBy: 'Omar Khalid' },
-    { id: '4', date: '2026-03-25', materialCode: 'MAT-001', materialName: 'Sodium Hydroxide', type: 'returned', quantity: 10, unit: 'kg', batchNumber: 'B-2026-0285', reference: 'RET-0003', performedBy: 'Fatima Noor' },
+    { title: t('common.reference'), dataIndex: 'referenceType', key: 'referenceType' },
+    { title: 'Balance', dataIndex: 'runningBalance', key: 'runningBalance' },
   ];
 
   return (
@@ -69,31 +72,20 @@ const TransactionHistory: React.FC = () => {
       <Title level={4}>{t('nav.transactions')}</Title>
       <Card>
         <Space style={{ marginBottom: 16 }} wrap>
-          <Input
-            placeholder={t('common.search')}
-            prefix={<SearchOutlined />}
-            style={{ width: 250 }}
-            allowClear
-          />
+          <Input placeholder={t('common.search')} prefix={<SearchOutlined />} style={{ width: 250 }} allowClear />
           <Select
             placeholder={t('inventory.transactionType')}
             style={{ width: 150 }}
             allowClear
             options={[
-              { label: t('inventory.received'), value: 'received' },
-              { label: t('inventory.issued'), value: 'issued' },
-              { label: t('inventory.adjusted'), value: 'adjusted' },
-              { label: t('inventory.returned'), value: 'returned' },
+              { label: t('inventory.received'), value: 'receive' },
+              { label: t('inventory.issued'), value: 'issue' },
+              { label: t('inventory.adjusted'), value: 'adjust' },
             ]}
           />
           <RangePicker />
         </Space>
-        <Table
-          columns={columns}
-          dataSource={mockData}
-          rowKey="id"
-          pagination={{ pageSize: 20, showSizeChanger: true }}
-        />
+        <Table columns={columns} dataSource={data} rowKey="id" loading={loading} pagination={{ current: page, pageSize: 20, total, onChange: setPage }} />
       </Card>
     </div>
   );

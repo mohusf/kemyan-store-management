@@ -42,11 +42,44 @@ export class DocumentsController {
     return this.documentsService.findAll(page, limit);
   }
 
+  @Get('hierarchy')
+  @CheckPermissions({ action: Action.Read, subject: 'Document' })
+  @ApiOperation({ summary: 'Get document hierarchy tree' })
+  @ApiQuery({ name: 'domain', required: false })
+  @ApiQuery({ name: 'chapter', required: false, type: Number })
+  async getHierarchy(
+    @Query('domain') domain?: string,
+    @Query('chapter') chapter?: number,
+  ) {
+    return this.documentsService.getHierarchy(domain, chapter);
+  }
+
+  @Get('domains')
+  @CheckPermissions({ action: Action.Read, subject: 'Document' })
+  @ApiOperation({ summary: 'Get domain counts' })
+  async getDomainCounts() {
+    return this.documentsService.getDomainCounts();
+  }
+
   @Get(':id')
   @CheckPermissions({ action: Action.Read, subject: 'Document' })
   @ApiOperation({ summary: 'Get document by ID' })
   async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.documentsService.findOne(id);
+  }
+
+  @Get(':id/children')
+  @CheckPermissions({ action: Action.Read, subject: 'Document' })
+  @ApiOperation({ summary: 'Get child documents' })
+  async getChildren(@Param('id', ParseUUIDPipe) id: string) {
+    return this.documentsService.getChildren(id);
+  }
+
+  @Get(':id/breadcrumb')
+  @CheckPermissions({ action: Action.Read, subject: 'Document' })
+  @ApiOperation({ summary: 'Get document breadcrumb path' })
+  async getBreadcrumb(@Param('id', ParseUUIDPipe) id: string) {
+    return this.documentsService.getBreadcrumb(id);
   }
 
   @Put(':id')

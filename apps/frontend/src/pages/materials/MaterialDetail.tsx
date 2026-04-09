@@ -1,38 +1,44 @@
-import React from 'react';
-import { Card, Descriptions, Tabs, Tag, Button, Space, Typography, Table } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Card, Descriptions, Tabs, Tag, Button, Space, Typography, Table, Spin, Empty } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
-import GHSPictogram from '../../components/common/GHSPictogram';
-import type { GHSCode } from '../../components/common/GHSPictogram';
+import api from '../../services/api';
 
 const { Title } = Typography;
 
+interface MaterialData {
+  id: string;
+  materialCode: string;
+  nameEn: string;
+  nameAr?: string;
+  casNumber: string;
+  category: string;
+  ghsClassification?: string;
+  unitOfMeasure: string;
+  reorderPoint: number;
+  specifications?: Record<string, unknown>;
+}
+
 const MaterialDetail: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const isAr = i18n.language === 'ar';
+  const [material, setMaterial] = useState<MaterialData | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const material = {
-    id,
-    code: 'MAT-001',
-    name: 'Sodium Hydroxide',
-    casNumber: '1310-73-2',
-    category: 'Base',
-    hazardClass: 'Corrosive',
-    ghsCodes: ['GHS05', 'GHS07'] as GHSCode[],
-    currentStock: 500,
-    unit: 'kg',
-    minimumStock: 100,
-    storageConditions: 'Cool, dry place. Keep away from acids.',
-    description: 'White solid, highly caustic metalite base and alkali.',
-  };
+  useEffect(() => {
+    if (!id) return;
+    setLoading(true);
+    api.get(`/materials/${id}`)
+      .then((res) => setMaterial(res.data))
+      .catch(() => setMaterial(null))
+      .finally(() => setLoading(false));
+  }, [id]);
 
-  const stockHistory = [
-    { key: '1', date: '2026-03-28', type: 'Received', quantity: 200, batch: 'B-2026-0312', reference: 'GRN-0045' },
-    { key: '2', date: '2026-03-25', type: 'Issued', quantity: -50, batch: 'B-2026-0298', reference: 'REQ-0042' },
-    { key: '3', date: '2026-03-20', type: 'Received', quantity: 350, batch: 'B-2026-0298', reference: 'GRN-0041' },
-  ];
+  if (loading) return <div style={{ textAlign: 'center', padding: 80 }}><Spin size="large" /></div>;
+  if (!material) return <Empty />;
 
   return (
     <div>
@@ -41,72 +47,27 @@ const MaterialDetail: React.FC = () => {
           {t('common.back')}
         </Button>
         <Title level={4} style={{ margin: 0 }}>
-          {material.name} ({material.code})
+          {isAr ? material.nameAr || material.nameEn : material.nameEn} ({material.materialCode})
         </Title>
       </Space>
 
-      <Tabs
-        defaultActiveKey="details"
-        items={[
-          {
-            key: 'details',
-            label: t('common.description'),
-            children: (
-              <Card>
-                <Descriptions bordered column={{ xs: 1, sm: 2 }}>
-                  <Descriptions.Item label={t('common.code')}>{material.code}</Descriptions.Item>
-                  <Descriptions.Item label={t('common.name')}>{material.name}</Descriptions.Item>
-                  <Descriptions.Item label={t('materials.casNumber')}>{material.casNumber}</Descriptions.Item>
-                  <Descriptions.Item label={t('materials.category')}>
-                    <Tag>{material.category}</Tag>
-                  </Descriptions.Item>
-                  <Descriptions.Item label={t('materials.hazardClass')}>
-                    <Tag color="red">{material.hazardClass}</Tag>
-                  </Descriptions.Item>
-                  <Descriptions.Item label={t('materials.currentStock')}>
-                    {material.currentStock} {material.unit}
-                  </Descriptions.Item>
-                  <Descriptions.Item label={t('materials.minimumStock')}>
-                    {material.minimumStock} {material.unit}
-                  </Descriptions.Item>
-                  <Descriptions.Item label={t('materials.storageConditions')}>
-                    {material.storageConditions}
-                  </Descriptions.Item>
-                  <Descriptions.Item label={t('compliance.ghsClassification')} span={2}>
-                    <GHSPictogram codes={material.ghsCodes} />
-                  </Descriptions.Item>
-                </Descriptions>
-              </Card>
-            ),
-          },
-          {
-            key: 'stock',
-            label: t('inventory.title'),
-            children: (
-              <Card>
-                <Table
-                  dataSource={stockHistory}
-                  columns={[
-                    { title: t('common.date'), dataIndex: 'date', key: 'date' },
-                    {
-                      title: t('inventory.transactionType'),
-                      dataIndex: 'type',
-                      key: 'type',
-                      render: (type: string) => (
-                        <Tag color={type === 'Received' ? 'green' : 'orange'}>{type}</Tag>
-                      ),
-                    },
-                    { title: t('common.quantity'), dataIndex: 'quantity', key: 'quantity' },
-                    { title: t('inventory.batchNumber'), dataIndex: 'batch', key: 'batch' },
-                    { title: t('common.reference'), dataIndex: 'reference', key: 'reference' },
-                  ]}
-                  pagination={false}
-                />
-              </Card>
-            ),
-          },
-        ]}
-      />
+      <Card>
+        <Descriptions bordered column={{ xs: 1, sm: 2 }}>
+          <Descriptions.Item label={t('common.code')}>{material.materialCode}</Descriptions.Item>
+          <Descriptions.Item label={t('common.name')}>
+            {isAr ? material.nameAr || material.nameEn : material.nameEn}
+          </Descriptions.Item>
+          <Descriptions.Item label={t('materials.casNumber')}>{material.casNumber}</Descriptions.Item>
+          <Descriptions.Item label={t('materials.category')}>
+            <Tag>{material.category}</Tag>
+          </Descriptions.Item>
+          <Descriptions.Item label={t('materials.hazardClass')}>
+            {material.ghsClassification ? <Tag color="red">{material.ghsClassification}</Tag> : 'N/A'}
+          </Descriptions.Item>
+          <Descriptions.Item label={t('common.unit')}>{material.unitOfMeasure}</Descriptions.Item>
+          <Descriptions.Item label={t('materials.minimumStock')}>{material.reorderPoint}</Descriptions.Item>
+        </Descriptions>
+      </Card>
     </div>
   );
 };

@@ -21,6 +21,15 @@ export class ComplianceService {
     return this.sdsRepository.save(record);
   }
 
+  async findAllSds(page = 1, limit = 20): Promise<{ data: SdsRecord[]; total: number }> {
+    const [data, total] = await this.sdsRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+    return { data, total };
+  }
+
   async findSdsByMaterial(materialId: string): Promise<SdsRecord[]> {
     return this.sdsRepository.find({
       where: { materialId },

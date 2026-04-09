@@ -47,6 +47,9 @@ const NCRList = () => lazy(() => import('../pages/quality/NCRList'));
 const SDSLibrary = () => lazy(() => import('../pages/compliance/SDSLibrary'));
 const WasteTracking = () => lazy(() => import('../pages/compliance/WasteTracking'));
 const DocumentList = () => lazy(() => import('../pages/documents/DocumentList'));
+const DocumentHierarchy = () => lazy(() => import('../pages/documents/DocumentHierarchy'));
+const DocumentDetail = () => lazy(() => import('../pages/documents/DocumentDetail'));
+const EquipmentRegister = () => lazy(() => import('../pages/equipment/EquipmentRegister'));
 const ReportDashboard = () => lazy(() => import('../pages/reports/ReportDashboard'));
 const AuditLog = () => lazy(() => import('../pages/audit/AuditLog'));
 const Settings = () => lazy(() => import('../pages/settings/Settings'));
@@ -84,7 +87,11 @@ export const router = createBrowserRouter([
       { path: 'quality/ncr', element: <NCRList /> },
       { path: 'compliance/sds', element: <SDSLibrary /> },
       { path: 'compliance/waste', element: <WasteTracking /> },
-      { path: 'documents', element: <DocumentList /> },
+      { path: 'documents', element: <DocumentHierarchy /> },
+      { path: 'documents/hierarchy', element: <DocumentHierarchy /> },
+      { path: 'documents/list', element: <DocumentList /> },
+      { path: 'documents/:id', element: <DocumentDetail /> },
+      { path: 'equipment', element: <EquipmentRegister /> },
       { path: 'reports', element: <ReportDashboard /> },
       { path: 'audit-log', element: <AuditLog /> },
       { path: 'settings', element: <Settings /> },

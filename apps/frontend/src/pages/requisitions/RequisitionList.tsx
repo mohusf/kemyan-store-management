@@ -1,62 +1,101 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Card, Button, Tag, Typography, Space, Input } from 'antd';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import api from '../../services/api';
 import type { ColumnsType } from 'antd/es/table';
 
 const { Title } = Typography;
 
 interface Requisition {
   id: string;
-  number: string;
-  requestedBy: string;
+  requisitionNumber: string;
+  requesterId: string;
+  materialId: string;
+  material?: { nameEn: string; nameAr?: string };
+  quantity: number;
+  urgency: string;
+  estimatedValue: number;
+  status: string;
   department: string;
-  date: string;
-  status: 'draft' | 'pending' | 'approved' | 'rejected';
-  priority: 'low' | 'medium' | 'high' | 'urgent';
-  itemCount: number;
+  justification?: string;
+  requiredDate?: string;
+  createdAt: string;
 }
 
 const statusColors: Record<string, string> = {
   draft: 'default',
-  pending: 'processing',
+  pending_supervisor: 'processing',
+  pending_store_manager: 'processing',
+  pending_procurement: 'processing',
+  pending_plant_manager: 'processing',
   approved: 'success',
   rejected: 'error',
+  cancelled: 'warning',
 };
 
-const priorityColors: Record<string, string> = {
+const urgencyColors: Record<string, string> = {
   low: 'default',
-  medium: 'blue',
+  normal: 'blue',
   high: 'orange',
-  urgent: 'red',
+  critical: 'red',
 };
 
 const RequisitionList: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const isAr = i18n.language === 'ar';
+  const [data, setData] = useState<Requisition[]>([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    setLoading(true);
+    api.get('/requisitions', { params: { page, limit: 20 } })
+      .then((res) => {
+        setData(res.data.data);
+        setTotal(res.data.total);
+      })
+      .catch(() => { setData([]); setTotal(0); })
+      .finally(() => setLoading(false));
+  }, [page]);
 
   const columns: ColumnsType<Requisition> = [
-    { title: '#', dataIndex: 'number', key: 'number', sorter: true },
-    { title: t('requisitions.requestedBy'), dataIndex: 'requestedBy', key: 'requestedBy' },
+    { title: '#', dataIndex: 'requisitionNumber', key: 'requisitionNumber', sorter: true },
+    {
+      title: t('materials.title'),
+      key: 'material',
+      render: (_: unknown, record: Requisition) =>
+        record.material ? (isAr ? record.material.nameAr || record.material.nameEn : record.material.nameEn) : record.materialId,
+    },
     { title: t('requisitions.department'), dataIndex: 'department', key: 'department' },
-    { title: t('common.date'), dataIndex: 'date', key: 'date', sorter: true },
+    { title: t('common.quantity'), dataIndex: 'quantity', key: 'quantity' },
+    {
+      title: t('common.date'),
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      sorter: true,
+      render: (val: string) => val ? new Date(val).toLocaleDateString() : '—',
+    },
     {
       title: t('common.status'),
       dataIndex: 'status',
       key: 'status',
       render: (status: string) => (
-        <Tag color={statusColors[status]}>
-          {t(`requisitions.${status}Status`)}
+        <Tag color={statusColors[status] || 'default'}>
+          {status?.replace(/_/g, ' ')}
         </Tag>
       ),
     },
     {
       title: t('requisitions.priority'),
-      dataIndex: 'priority',
-      key: 'priority',
-      render: (priority: string) => (
-        <Tag color={priorityColors[priority]}>{t(`priority.${priority}`)}</Tag>
+      dataIndex: 'urgency',
+      key: 'urgency',
+      render: (urgency: string) => (
+        <Tag color={urgencyColors[urgency] || 'default'}>{urgency}</Tag>
       ),
     },
     {
@@ -70,12 +109,6 @@ const RequisitionList: React.FC = () => {
         </Space>
       ),
     },
-  ];
-
-  const mockData: Requisition[] = [
-    { id: '1', number: 'REQ-2026-0045', requestedBy: 'Ahmed Hassan', department: 'Lab A', date: '2026-03-28', status: 'pending', priority: 'high', itemCount: 3 },
-    { id: '2', number: 'REQ-2026-0044', requestedBy: 'Sara Ali', department: 'Production', date: '2026-03-27', status: 'approved', priority: 'medium', itemCount: 5 },
-    { id: '3', number: 'REQ-2026-0043', requestedBy: 'Omar Khalid', department: 'QC Lab', date: '2026-03-26', status: 'draft', priority: 'low', itemCount: 2 },
   ];
 
   return (
@@ -93,12 +126,22 @@ const RequisitionList: React.FC = () => {
           prefix={<SearchOutlined />}
           style={{ width: 300, marginBottom: 16 }}
           allowClear
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <Table
           columns={columns}
-          dataSource={mockData}
+          dataSource={data}
           rowKey="id"
-          pagination={{ pageSize: 10, showSizeChanger: true }}
+          loading={loading}
+          pagination={{
+            current: page,
+            pageSize: 20,
+            total,
+            onChange: setPage,
+            showSizeChanger: false,
+            showTotal: (t) => `${t} items`,
+          }}
         />
       </Card>
     </div>

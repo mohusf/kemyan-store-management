@@ -96,6 +96,24 @@ export class InventoryController {
     );
   }
 
+  @Get('batches')
+  @CheckPermissions({ action: Action.Read, subject: 'Inventory' })
+  @ApiOperation({ summary: 'List all batches' })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  async findAllBatches(@Query('page') page?: number, @Query('limit') limit?: number) {
+    return this.inventoryService.findAllBatches(page, limit);
+  }
+
+  @Get('transactions')
+  @CheckPermissions({ action: Action.Read, subject: 'Inventory' })
+  @ApiOperation({ summary: 'List all transactions' })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  async findAllTransactions(@Query('page') page?: number, @Query('limit') limit?: number) {
+    return this.inventoryService.findAllTransactions(page, limit);
+  }
+
   @Get('balance')
   @CheckPermissions({ action: Action.Read, subject: 'Inventory' })
   @ApiOperation({ summary: 'Get running balance for material at location' })

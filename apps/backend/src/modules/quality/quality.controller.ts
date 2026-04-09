@@ -31,6 +31,15 @@ export class QualityController {
     return this.qualityService.createInspection(body);
   }
 
+  @Get('inspections')
+  @CheckPermissions({ action: Action.Read, subject: 'Inspection' })
+  @ApiOperation({ summary: 'List all inspections' })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  async findAllInspections(@Query('page') page?: number, @Query('limit') limit?: number) {
+    return this.qualityService.findAllInspections(page, limit);
+  }
+
   @Get('inspections/:id')
   @CheckPermissions({ action: Action.Read, subject: 'Inspection' })
   @ApiOperation({ summary: 'Get inspection by ID' })

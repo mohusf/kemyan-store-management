@@ -10,6 +10,7 @@ export * from './types/compliance.types';
 export * from './types/warehouse.types';
 export * from './types/audit.types';
 export * from './types/document.types';
+export * from './types/equipment.types';
 
 // Constants
 export * from './constants/approval-thresholds';
