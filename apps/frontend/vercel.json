@@ -1,0 +1,9 @@
+{
+  "buildCommand": "cd ../.. && npm ci --workspace=apps/frontend --workspace=packages/shared --include-workspace-root && npm run build -w apps/frontend",
+  "outputDirectory": "dist",
+  "installCommand": "echo 'handled in buildCommand'",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://kemyan-backend.onrender.com/api/:path*" }
+  ]
+}

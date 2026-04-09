@@ -27,15 +27,14 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install frontend dependencies
-        working-directory: apps/frontend
-        run: npm install --legacy-peer-deps --ignore-scripts
+      - name: Install all workspace dependencies
+        run: npm ci --workspace=apps/frontend --workspace=packages/shared --include-workspace-root
 
-      - name: Build with Vite
-        working-directory: apps/frontend
-        run: ./node_modules/.bin/vite build
+      - name: Build frontend
+        run: npm run build -w apps/frontend
         env:
           GITHUB_PAGES: "true"
+          VITE_API_URL: ${{ vars.VITE_API_URL || '' }}
 
       - name: Create 404.html for SPA routing
         run: cp apps/frontend/dist/index.html apps/frontend/dist/404.html
